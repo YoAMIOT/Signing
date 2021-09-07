@@ -18,18 +18,6 @@
 		<div id="homeContainer" class="sm-col12 md-col12 lg-col12">
 			<!-- MAIN -->
 			<div id="mainTeachContainer" class="sm-col12 md-col9 lg-col9">
-				<c:set var="countersignTest" value="${countersignTest}"/>
-				<c:set var="createSchoolDayTest" value="${createSchoolDayTest}"/>
-				<c:if test="${createSchoolDayTest == false}">
-					<div class="warnMessage">
-						<p>Vous pouvez créer un jour de formation uniquement entre ${startCreateDay} et ${stopCreateDay}.</p>
-					</div>
-				</c:if>
-				<c:if test="${countersignTest == false}">
-					<div class="warnMessage">
-						<p>Vous pouvez contresigner uniquement entre ${countersignStart} et ${countersignStop}.</p>
-					</div>
-				</c:if>
 				<div id="teachTutorial">
 					<p class="font2em">Pour commencer, vous pouvez sélectionner une des formation dont vous êtes le référant dans la liste de formations sur votre droite. Ainsi vous pourrez y voir les historique des absences de vos apprenant et vous pourrez aussi contresigner à la fin de la journée.</p>
 				</div>

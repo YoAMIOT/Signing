@@ -15,5 +15,9 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
 		
 	//GET ALL THE CLASSROOM WHERE THIS TEACHER IS THE MAIN TEACHER//
 	@Query(value = "SELECT * FROM classroom c WHERE c.teacher_id = ?1", nativeQuery = true)
-	List<Classroom> findByTeacherId(int studentId);
+	List<Classroom> findByTeacherId(int teacherId);
+	
+	//GET THE CLASSROOM BY ID//
+	@Query(value = "SELECT * FROM classroom c WHERE id = ?1", nativeQuery = true)
+	Classroom findById(int classroomId);
 }
