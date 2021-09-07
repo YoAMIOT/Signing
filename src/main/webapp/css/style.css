@@ -1,0 +1,308 @@
+@charset "UTF-8";
+
+/*SMALL COLUMN*/
+.sm-col1 { width: calc(8.33%); }
+.sm-col2 { width: calc(16.66%); }
+.sm-col3 { width: calc(25%); }
+.sm-col4 { width: calc(33.33%); }
+.sm-col5 { width: calc(41.66%); }
+.sm-col6 { width: calc(50%); }
+.sm-col7 { width: calc(58.33%); }
+.sm-col8 { width: calc(66.66%); }
+.sm-col9 { width: calc(75%); }
+.sm-col10 { width: calc(83.33% ); }
+.sm-col11 { width: calc(91.66%); }
+.sm-col12 { width: calc(100%); }
+​
+/*GENERAL*/
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+*{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+    background-color: rgb(147,219,105);
+	margin: 0;
+	min-width: 250;
+	max-width: 5000px;
+}
+
+.font0dot8em{
+	font-size: 0.8em;
+}
+
+.font1dot5em{
+	font-size: 1.5em;
+}
+
+.font2em{
+	font-size: 2em;
+}
+
+
+
+/*LOGIN*/
+#loginFormContainer{
+	background-color: rgba(88,143,55, 0.7);
+	border-radius: 15px;
+	height: 80vh;
+	margin: 10vh 0 10vh 0;
+	text-align: center;
+	color: white;
+}
+
+#formContainer div{
+	margin-top: 5vh;
+}
+
+#loginFormContainer input{
+	width: 75%;
+	height: 2.5em;
+	margin-top: 5vh;
+	text-align: center;
+}
+
+#loginFormContainer button{
+	margin-top: 5vh;
+	border: 3px solid rgb(88,143,55);
+	background-color: rgb(147,219,105);
+	border-radius: 3px;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+}
+
+
+
+/*STUDENT HOME PAGE*/
+#mainContainer{
+	text-align: center;
+	height: 100%;
+}
+
+#signingTitle{
+	border-bottom: 1px solid rgb(88,143,55);
+}
+
+.signingCheckbox{
+	width: 30px;
+	height: 30px;
+}
+
+/*History*/
+#studentHistory{
+	background-color: rgb(88,143,55);
+	height: 100%;
+	text-align: center;
+	color: white;
+	margin-bottom: 10vh;
+}
+
+/*Privacy*/
+#privacyAndLegalLink{
+	display: inline-block;
+	text-decoration: none;
+	margin-top: 5vh;
+	transform: translateY(-50%);
+	color: white;
+	border: 2px solid rgb(147,219,105);
+	border-radius: 3px;
+	font-size: 1.2em;
+}
+
+#privacyAndLegalLink:hover{
+	border: 2px solid yellow;
+	color: yellow;
+}
+
+#privacy{
+	visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 0; 
+    right: 0;
+    bottom: 0; 
+    left: 0;
+    background-color: rgb(147,219,105);
+    transition: all .4s;
+    z-index: -1;
+    overflow: scroll;
+}
+
+#privacy:target {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+}
+
+#privacyClose{
+	font-size: 4em;
+	text-decoration: none;
+	color: red;
+	text-align: right;
+	display: block;
+}
+
+#privacyClose:hover{
+	color: orange;
+}
+
+#policyContainer{
+	margin: 30px;
+}
+
+#policyContainer h2{
+	text-align: center;
+	border-bottom: 1px solid rgb(88,143,55);
+}
+
+.policyParaContainer{
+	margin-top: 10vh;
+}
+
+.policyParaContainer h3{
+	text-align: center;
+}
+
+.policyParaContainer p{
+	text-align: center;
+}
+
+/*Footer*/
+#footer{
+	height: 10vh;
+	background-color: rgb(88,143,55);
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+}
+
+
+
+/*TEACHER HOME*/
+#mainTeachContainer{
+	text-align: center;
+}
+
+.warnMessage{
+	background-color: rgb(245,135,66);
+	display: inline-block;
+	width: 100%;
+	border-bottom: 1px solid rgb(179,87,30);
+}
+
+.classroomSelector{
+	border: 2px solid rgb(147,219,105); 
+	text-decoration: none;
+	color: white;
+	width: 100%;
+	display: inline-block;
+	
+}
+
+.classroomSelector:hover{
+	border: 2px solid yellow; 
+	color: yellow;
+}
+
+
+/*MEDIUM COLUMN*/
+@media screen and (min-width: 720px) {
+    .md-col1 { width: calc(8.33%); }
+    .md-col2 { width: calc(16.66%); }
+    .md-col3 { width: calc(25%); }
+    .md-col4 { width: calc(33.33%); }
+    .md-col5 { width: calc(41.66%); }
+    .md-col6 { width: calc(50%); }
+    .md-col7 { width: calc(58.33%); }
+    .md-col8 { width: calc(66.66%); }
+    .md-col9 { width: calc(75%); }
+    .md-col10 { width: calc(83.33%); }
+    .md-col11 { width: calc(91.66%); }
+    .md-col12 { width: calc(100%); }
+    
+    
+    
+    /*LOGIN*/
+    #loginFormContainer{
+		height: 80vh;
+		font-size: 3em;
+		margin: 10vh 8.33% 10vh 8.33%;
+	}
+	
+	
+	
+	/*STUDENT HOME PAGE*/
+	#homeContainer{
+		display: flex;
+	}
+	
+	#mainContainer{
+		margin-top: 50vh;
+		transform: translateY(-50%);
+	}
+	
+	/*History*/
+	#studentHistory{
+		min-height: 100vh;
+		max-height: 100%;
+		margin-bottom: 0;
+	}
+	
+	#studentHistory h2{
+		margin-top: 0;
+	}
+	
+	#neverAbsent{
+		margin-top: 50vh;
+		transform: translateY(-50%);
+	}
+	
+	/*Privacy*/
+	#policyContainer{
+		font-size: 1.5em;
+	}
+	
+	.policyParaContainer p{
+		text-align: justify;
+	}
+	
+	#lilPolicyContainer{
+		width: 50%;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	
+	/*TEACHER HOME PAGE*/
+	#teachTutorial{
+		transform: translateY(-50%);
+		margin-top: 40vh;
+	}
+}
+
+
+
+/*LARGE COLUMN*/
+@media screen and (min-width: 1024px){
+    .lg-col1 { width: calc(8.33%); }
+    .lg-col2 { width: calc(16.66%); }
+    .lg-col3 { width: calc(25%); }
+    .lg-col4 { width: calc(33.33%); }
+    .lg-col5 { width: calc(41.66%); }
+    .lg-col6 { width: calc(50%); }
+    .lg-col7 { width: calc(58.33%); }
+    .lg-col8 { width: calc(66.66%); }
+    .lg-col9 { width: calc(75%); }
+    .lg-col10 { width: calc(83.33%); }
+    .lg-col11 { width: calc(91.66%); }
+    .lg-col12 { width: calc(100%); }
+}
