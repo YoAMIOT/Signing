@@ -201,7 +201,8 @@ body {
 }
 
 .classroomSelector{
-	border: 2px solid rgb(147,219,105); 
+	border-top: 2px solid rgb(147,219,105); 
+	border-bottom: 2px solid rgb(147,219,105); 
 	text-decoration: none;
 	color: white;
 	width: 100%;
@@ -210,9 +211,37 @@ body {
 }
 
 .classroomSelector:hover{
-	border: 2px solid yellow; 
+	border-top: 2px solid yellow; 
+	border-bottom: 2px solid yellow; 
 	color: yellow;
 }
+
+#mainClassroom h1{
+	border-bottom: 1px solid rgb(88,143,55);
+}
+
+#createSchoolDayButton{
+	text-decoration: none;
+	border: 2px solid red; 
+	border-radius: 3px;
+	color: red;
+}
+
+#createSchoolDayButton:hover{
+	border: 2px solid orange; 
+	border-radius: 3px;
+	color: orange;	
+}
+
+.teachStuffContainer{
+	border-bottom: 1px solid rgb(88,143,55);
+	padding-bottom: 2vh;
+}
+
+#counterSignContainer table,th,tr {
+    border: 1px solid #333;
+}
+
 
 
 /*MEDIUM COLUMN*/
@@ -253,9 +282,10 @@ body {
 	
 	/*History*/
 	#studentHistory{
-		min-height: 100vh;
-		max-height: 100%;
+		height: 100vh;
 		margin-bottom: 0;
+		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 	
 	#studentHistory h2{
@@ -282,10 +312,19 @@ body {
 		margin-left: auto;
 	}
 	
-	/*TEACHER HOME PAGE*/
+	/*TEACHER PAGE*/
+	.warnMessage{
+		height: 5vh;
+	}
+	
 	#teachTutorial{
 		transform: translateY(-50%);
 		margin-top: 40vh;
+	}
+	
+	#mainClassroom{
+		overflow-y: scroll;
+		overflow-x: hidden;
 	}
 }
 

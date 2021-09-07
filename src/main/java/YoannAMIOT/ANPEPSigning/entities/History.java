@@ -20,16 +20,16 @@ public class History {
 	@Column(nullable = false)
 	private Date date;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean morningSign;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean afternoonSign;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean morningCheck;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean afternoonCheck;
 	
 	@ManyToOne(targetEntity = User.class)

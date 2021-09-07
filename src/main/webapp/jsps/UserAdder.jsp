@@ -7,7 +7,7 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	    <meta name="robots" content="noindex, nofollow">
-		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	    <title>UserAdder</title>
 	</head>
 
@@ -38,5 +38,9 @@
 					
 					<button type="submit">Ajouter l'User</button>
 		</form:form>
+		
+		
+		
+		<%@ include file="privacyPolicy.jsp"%>
 	</body>
 </html>
