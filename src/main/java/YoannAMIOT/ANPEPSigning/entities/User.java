@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,9 +22,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Entity
 
 public class User implements Serializable, UserDetails{
-
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -56,7 +57,10 @@ public class User implements Serializable, UserDetails{
 	
 	@OneToMany(targetEntity = Classroom.class)
 	private List<Classroom> Classroom = new ArrayList<Classroom>();
-
+	
+	@Transient
+	private List<History> absentHistories = new ArrayList<History>();
+	
 	
 	
 	//TO STRING//
@@ -169,6 +173,14 @@ public class User implements Serializable, UserDetails{
 	
 	public void setClassroom(List<Classroom> classroom) {
 		Classroom = classroom;
+	}
+
+	public List<History> getAbsentHistories() {
+		return absentHistories;
+	}
+
+	public void setAbsentHistories(List<History> absentHistories) {
+		this.absentHistories = absentHistories;
 	}
 
 	@Override

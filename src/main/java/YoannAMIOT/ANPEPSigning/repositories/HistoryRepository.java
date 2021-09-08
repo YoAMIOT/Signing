@@ -22,13 +22,25 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 	
 	
 	
+	//CHECK IF THE STUDENT IS ALREADY COUNTERSIGNED FOR A DATE//
+	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM history h WHERE h.student_id = ?1 AND h.date = ?2 AND (morning_check = 1 OR afternoon_check = 1)", nativeQuery = true)
+	boolean existsStudentByCountersigned(int studentId, Date date);
+	
+	
+	
 	//CHECK IF THERE'S ANY HISTORY WHERE THE STUDENT WAS ABSENT//
 	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM history h WHERE h.student_id = ?1 AND (morning_check = 0 OR afternoon_check = 0)", nativeQuery = true)
 	boolean existsByStudentIdAndNotSigned(int studentId);
 	
-	//GET ALL THE HISTORIES WHERE THE STUDENT WAS ABSENT//
+	//GET ALL THE HISTORIES WHERE THE STUDENT WAS ABSENT BY DATE//
 	@Query(value = "SELECT * FROM history h WHERE h.student_id = ?1 AND (h.morning_check = 0 OR h.afternoon_check = 0) AND h.date != ?2 ORDER BY date DESC", nativeQuery = true)
 	List<History> findByStudentsAndNotSigned(int studentId, Date date);
+	
+	
+	
+	//GET ALL THE HISTORIES WHERE THE STUDENT WAS ABSENT//
+	@Query(value = "SELECT * FROM history h WHERE h.student_id = ?1 AND (h.morning_check = 0 OR h.afternoon_check = 0) ORDER BY date DESC", nativeQuery = true)
+	List<History> findByStudentsNotSigned(int studentId);
 	
 	
 	

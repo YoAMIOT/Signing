@@ -40,8 +40,8 @@ public class TeacherController {
 	
 	//COUNTERSIGNATURE HOURS//
 	//The teacher can countersign between "countersignStart" and "countersignStop" 
-	LocalTime countersignStart = LocalTime.parse( "08:00:00" );
-    LocalTime countersignStop = LocalTime.parse( "17:30:00" );
+	LocalTime countersignStart = LocalTime.parse( "16:00:00" );
+    LocalTime countersignStop = LocalTime.parse( "16:30:00" );
     
     
     
@@ -86,12 +86,14 @@ public class TeacherController {
 		
 		//Local variables
 		int counter = 0;
+		int countersignedCounter = 0;
 		
 		//Attributes variables for the JSP
 		List <Classroom> classrooms = new ArrayList<Classroom>();
 		List <Integer> studentsId = new ArrayList<Integer>();
 		List <User> students = new ArrayList<User>();
 		boolean canCreateSchoolDay = false;
+		boolean alreadyCountersigned = false;
 		
         //Checking if the user is still connected and if yes getting the user id
         HttpSession session = request.getSession(true);
@@ -132,15 +134,26 @@ public class TeacherController {
 			
 			//For each students id in the list
 			for (Integer s : studentsId) {
-				//Get the student and add it into the "students" list
-				User u = userRepository.findStudentById(s);
-				students.add(u);
 				//Check if the student already has a history for today
 				boolean historyAlreadyExists = historyRepository.existsByStudentIdAndDate(s, currentDate);
 				//If the student already has a history we add 1 to the counter
 				if(historyAlreadyExists == true) {
 					counter += 1;
 				}
+				//Check if the student is already countersigned for today
+				boolean studentAlreadyCountersigned = historyRepository.existsStudentByCountersigned(s, currentDate);
+				//If the student is already countersigned we add 1 to the counter
+				if(studentAlreadyCountersigned == true) {
+					countersignedCounter += 1;
+				}
+				//We get all the history where the student was absent
+				List<History> absentHistories = historyRepository.findByStudentsNotSigned(s);
+				//Get the student and add it into the "students" list
+				User u = userRepository.findStudentById(s);
+				//Set the absent History of the student
+				u.setAbsentHistories(absentHistories);
+				//Adding the student to the list of students
+				students.add(u);
 			}
 		}
 
@@ -149,7 +162,13 @@ public class TeacherController {
 			canCreateSchoolDay = true;
 		}
 		
+		//Check if the difference between the size of the list and the counter is greater than 1 and if yes the teach can create a school day
+		if((studentsId.size() - countersignedCounter) >= 1 ){
+			alreadyCountersigned = true;
+		}
+		
 		//Attributes for the JSP
+		request.setAttribute("alreadyCountersigned", alreadyCountersigned);
 		request.setAttribute("students", students);
 		request.setAttribute("studentInThisClassroomExists", studentInThisClassroomExists);
 		request.setAttribute("canCreateSchoolDay", canCreateSchoolDay);

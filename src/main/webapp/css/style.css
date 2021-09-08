@@ -290,6 +290,44 @@ body {
     border: 1px solid rgb(88, 143, 55);
 }
 
+#studentsHistories{
+	background-color: rgba(255,255,255,0.7);
+	border-radius: 10px;
+}
+
+.greenBg{
+	background-color: green;
+}
+
+.redBg{
+	background-color: red;
+}
+
+.studentHistoryContainer{
+	overflow-x: scroll;
+}
+
+.studentHistoryTable{ 
+	margin-top: 3vh;
+	margin-bottom: 3vh;
+	font-size: 1.5em;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+.tableHead{
+	border-bottom: 2px solid black;
+}
+
+.tableBody{
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+}
+
+.borderGreen{
+	border: 1px solid rgb(88, 143, 55)
+}
+
 
 
 /*MEDIUM COLUMN*/
