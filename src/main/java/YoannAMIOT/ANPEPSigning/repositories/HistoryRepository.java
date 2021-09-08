@@ -43,4 +43,13 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 	@Modifying
 	@Query(value = "UPDATE history h SET h.afternoon_sign = true WHERE h.student_id = ?1 AND h.date = ?2", nativeQuery = true)
 	void updateAfternoonSignByStudent(int studentId, Date date);
+	
+	
+	
+	//UPDATE STUDENT COUNTERSIGN WITH TEACHER'S CHECK
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE history h SET h.morning_check = ?1, h.afternoon_check = ?2 WHERE h.student_id = ?3 AND h.date = ?4", nativeQuery = true)
+	void updateStudentHistoryWithTeachCheck(boolean morningCheck, boolean afternoonCheck, int studentId, Date date);
+	
 }

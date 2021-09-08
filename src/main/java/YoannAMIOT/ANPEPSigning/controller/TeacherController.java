@@ -41,7 +41,7 @@ public class TeacherController {
 	//COUNTERSIGNATURE HOURS//
 	//The teacher can countersign between "countersignStart" and "countersignStop" 
 	LocalTime countersignStart = LocalTime.parse( "08:00:00" );
-    LocalTime countersignStop = LocalTime.parse( "16:30:00" );
+    LocalTime countersignStop = LocalTime.parse( "17:30:00" );
     
     
     
@@ -151,6 +151,7 @@ public class TeacherController {
 		
 		//Attributes for the JSP
 		request.setAttribute("students", students);
+		request.setAttribute("studentInThisClassroomExists", studentInThisClassroomExists);
 		request.setAttribute("canCreateSchoolDay", canCreateSchoolDay);
     	request.setAttribute("createSchoolDayTest", createSchoolDayTest);
     	request.setAttribute("countersignTest", countersignTest);
@@ -206,8 +207,31 @@ public class TeacherController {
 	
 	
 	//POST OF THE COUNTERSIGN//
-	@PostMapping("/countersign")
-	public String submitCountersign() {
-		return "";
+	@PostMapping("/countersign/{id}")
+	public String submitCountersign(@PathVariable String id,  HttpServletRequest request) {
+		
+		//Getting the Classroom
+		Classroom classroom = classroomRepository.findById(Integer.parseInt(id));
+		
+		//Getting today's date
+		long millis = System.currentTimeMillis();
+		java.sql.Date currentDate = new java.sql.Date(millis);
+			
+		//Getting all the students ids
+		List<Integer> studentsId = classroomRepository.findStudentsIdByClassroomId(classroom.getId());
+		
+		//For each students id in the list
+		for (Integer s : studentsId) {	
+			//We get the param from the form
+	        String morningCheckStr = request.getParameter("morningCheck" + s);
+	        String afternoonCheckStr = request.getParameter("afternoonCheck" + s);
+	        //We parse the param that are strings into booleans
+	        boolean morningCheck = Boolean.parseBoolean(morningCheckStr);
+	        boolean afternoonCheck = Boolean.parseBoolean(afternoonCheckStr);
+	        //We update the DB with the new datas
+	        historyRepository.updateStudentHistoryWithTeachCheck(morningCheck, afternoonCheck, s, currentDate);
+		}
+		
+		return "redirect:/teacherClassroom/" + id;
 	}
 }
