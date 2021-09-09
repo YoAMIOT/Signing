@@ -56,7 +56,7 @@ public class LoginController {
 	@GetMapping("/fail")
 	public String fail() {
 		//redirecting to the login form
-		return "redirect:login";
+		return "redirect:/login";
 	}
 	
 	
@@ -64,6 +64,6 @@ public class LoginController {
 	@GetMapping("/error")
 	public String error() {
 		//redirecting to the login form
-		return "redirect:login";
+		return "redirect:/login";
 	}
 }

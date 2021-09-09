@@ -102,7 +102,7 @@ public class TeacherController {
         if(session.getAttribute("user") != null) {
         	idUser = user.getId();
         } else {
-        	return "redirect:login";
+        	return "redirect:/login";
         }
 
     	//Checking if there's a Classroom where the connected teacher is the main teacher
