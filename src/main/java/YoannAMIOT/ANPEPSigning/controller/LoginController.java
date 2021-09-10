@@ -15,7 +15,12 @@ public class LoginController {
 	
 	//GET OF THE LOGIN FORM//
 	@GetMapping(path={"","/login"})
-	public String showLogin(@ModelAttribute User user) {
+	public String showLogin(@ModelAttribute User user, HttpServletRequest request) {
+		
+		//Clearing the session
+		HttpSession session = request.getSession(true);
+		session.removeAttribute("user");
+		
 		//Return the JSP
 		return "login";
 	}
@@ -32,7 +37,7 @@ public class LoginController {
 		
 		//Putting the connected user in session
 		HttpSession session = request.getSession(true);
-		session.setAttribute("user", user);		
+		session.setAttribute("user", user);	
 		
 		//Creating an empty string to put the redirect in it
 		String redirection = "";
@@ -43,7 +48,7 @@ public class LoginController {
 		} else if (user.getResponsability() == 1) {
 			redirection = "redirect:teacherHome";
 		} else if (user.getResponsability() == 2) {
-			redirection = "redirect:headmasterHome";
+			redirection = "redirect:headmaster";
 		}
 		
 		//Redirecting the user by using the adapted redirection string

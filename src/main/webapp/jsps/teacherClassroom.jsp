@@ -45,8 +45,7 @@
 	
 						<!-- CREATE SCHOOL DAY -->
 						<c:set var="canCreateSchoolDay" value="${canCreateSchoolDay}" />
-						<c:if
-							test="${createSchoolDayTest == true && canCreateSchoolDay == true}">
+						<c:if test="${createSchoolDayTest == true && canCreateSchoolDay == true}">
 							<div class="teachStuffContainer">
 								<p class="font1dot5em">Cliquez sur le bouton ci-dessous pour
 									créer une journée de formation et permettre à vos apprenants
@@ -181,9 +180,7 @@
 					value="${classroomWithTeachExists}" />
 				<c:if test="${classroomWithTeachExists == true}">
 					<c:forEach var="c" items="${classrooms}">
-						<a
-							href="${pageContext.request.contextPath}/teacherClassroom/${c.getId()}"
-							class="font2em classroomSelector">${c.getName()}</a>
+						<a href="${pageContext.request.contextPath}/teacherClassroom/${c.getId()}" class="font2em classroomSelector">${c.getName()}</a>
 					</c:forEach>
 				</c:if>
 			</div>

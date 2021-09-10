@@ -57,11 +57,11 @@ public class TeacherController {
         HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
 		int idUser = 0;
-        if(session.getAttribute("user") != null) {
-        	idUser = user.getId();
-        } else {
-        	return "redirect:login";
-        }
+		if(user != null && user.getResponsability() == 1) {
+			idUser = user.getId();
+		} else {
+			return "redirect:/login";
+		}
 
     	//Checking if there's a Classroom where the connected teacher is the main teacher
         boolean classroomWithTeachExists = classroomRepository.existsClassroomWithThisMainTeach(idUser);
@@ -99,11 +99,11 @@ public class TeacherController {
         HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
 		int idUser = 0;
-        if(session.getAttribute("user") != null) {
-        	idUser = user.getId();
-        } else {
-        	return "redirect:/login";
-        }
+		if(user != null && user.getResponsability() == 1) {
+			idUser = user.getId();
+		} else {
+			return "redirect:/login";
+		}
 
     	//Checking if there's a Classroom where the connected teacher is the main teacher
         boolean classroomWithTeachExists = classroomRepository.existsClassroomWithThisMainTeach(idUser);
@@ -190,10 +190,18 @@ public class TeacherController {
 	
 	//GET OF THE CREATE SCHOOL DAY//
 	@GetMapping("/createSchoolDay/{id}")
-	public String createSchoolDayForAClassroom(@PathVariable String id) {
+	public String createSchoolDayForAClassroom(@PathVariable String id, HttpServletRequest request) {
+		
+		//Checking if the user is still connected and if yes getting the user id
+		HttpSession session = request.getSession(true);
+		User user = (User) session.getAttribute("user");
+		if(user == null || user.getResponsability() != 1) {
+			return "redirect:/login";
+		}
 		
 		//Getting the Classroom
 		Classroom classroom = classroomRepository.findById(Integer.parseInt(id));
+		
 		
 		//Checking if there is any existing student in this classroom
 		boolean studentInThisClassroomExists = classroomRepository.existsStudentInThisClassroom(classroom.getId());
@@ -228,6 +236,13 @@ public class TeacherController {
 	//POST OF THE COUNTERSIGN//
 	@PostMapping("/countersign/{id}")
 	public String submitCountersign(@PathVariable String id,  HttpServletRequest request) {
+		
+        //Checking if the user is still connected and if yes getting the user id
+        HttpSession session = request.getSession(true);
+		User user = (User) session.getAttribute("user");
+		if(user == null || user.getResponsability() != 1) {
+			return "redirect:/login";
+		}
 		
 		//Getting the Classroom
 		Classroom classroom = classroomRepository.findById(Integer.parseInt(id));

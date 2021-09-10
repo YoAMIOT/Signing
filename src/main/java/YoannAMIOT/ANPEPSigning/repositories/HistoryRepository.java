@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import YoannAMIOT.ANPEPSigning.entities.History;
 
 public interface HistoryRepository extends JpaRepository<History, Integer>{
-//STUDENT//
 	//CHECK IF THERE'S AN HISTORY FOR THE STUDENT AND DATE//
 	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM history h WHERE h.student_id = ?1 AND h.date = ?2", nativeQuery = true)
 	boolean existsByStudentIdAndDate(int studentId, Date date);

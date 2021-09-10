@@ -1,14 +1,16 @@
 package YoannAMIOT.ANPEPSigning.repositories;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import YoannAMIOT.ANPEPSigning.entities.Classroom;
 
 public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
-//TEACHER//
 	//CHECK IF THERE'S ANY CLASSROOM WHERE THIS TEACHER IS THE MAIN TEACHER//
 	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM classroom c WHERE c.teacher_id = ?1", nativeQuery = true)
 	boolean existsClassroomWithThisMainTeach(int teacherId);
@@ -32,4 +34,19 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
 	//GET THE STUDENTS ID BY THE CLASSROOM ID//
 	@Query(value = "SELECT id_user FROM classrooms_students WHERE id_classroom = ?1", nativeQuery = true)
 	List<Integer> findStudentsIdByClassroomId(int classroomId);
+	
+	
+	
+	//CHECK IF THERE'S ANY EXISTING CLASSROOM//
+	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM classroom", nativeQuery = true)
+	boolean existsAnyClassroom();
+	
+	
+	
+	//UPDATE OF THE CLASSROOM//
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE classroom c SET c.name = ?1, c.start_date = ?2, c.end_date = ?3, c.teacher_id = ?4 WHERE c.id = ?5 ", nativeQuery = true)
+	void updateClassroom(String name, Date startDate, Date endDate, int teacherId, int id);
+	
 }

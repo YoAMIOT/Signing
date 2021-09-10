@@ -19,7 +19,7 @@
 			<!-- MAIN -->
 			<div id="mainTeachContainer" class="sm-col12 md-col9 lg-col9">
 				<div id="teachTutorial">
-					<p class="font2em">Pour commencer, vous pouvez sélectionner une des formation dont vous êtes le référant dans la liste de formations sur votre droite. Ainsi vous pourrez y voir les historique des absences de vos apprenant et vous pourrez aussi contresigner à la fin de la journée.</p>
+					<p class="font2em">Pour commencer, vous pouvez sélectionner une des formation dont vous êtes le référant dans la liste de formations sur votre droite. Ainsi vous pourrez y créer un jour de formation afin que vos apprenants émarge, vous pourrez voir les historique des absences de vos apprenant et contresigner à la fin de la journée.</p>
 				</div>
 			</div>
 			

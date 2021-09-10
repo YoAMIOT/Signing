@@ -115,7 +115,7 @@ body {
 	text-decoration: none;
 }
 
-/*STUDENT HOME PAGE*/
+/*STUDENT*/
 #mainContainer {
 	text-align: center;
 	height: 100%;
@@ -209,16 +209,8 @@ body {
 	text-align: center;
 }
 
-/*Footer*/
-#footer {
-	height: 10vh;
-	background-color: rgb(88, 143, 55);
-	position: fixed;
-	bottom: 0;
-	text-align: center;
-}
 
-/*TEACHER HOME*/
+/*TEACHER*/
 #mainTeachContainer {
 	text-align: center;
 }
@@ -310,6 +302,8 @@ body {
 .studentHistoryTable{ 
 	margin-top: 3vh;
 	margin-bottom: 3vh;
+	margin-left: auto;
+	margin-right: auto;
 	font-size: 1.5em;
 	border-collapse: collapse;
 	border: 1px solid black;
@@ -325,7 +319,84 @@ body {
 }
 
 .borderGreen{
-	border: 1px solid rgb(88, 143, 55)
+	border: 1px solid rgb(88, 143, 55);
+}
+
+/*HEADMASTER*/
+.navSelector {
+	border-top: 2px solid orange;
+	border-bottom: 2px solid orange;
+	text-decoration: none;
+	color: white;
+	width: 100%;
+	display: inline-block;
+}
+
+.navSelector:hover {
+	border-top: 2px solid yellow;
+	border-bottom: 2px solid yellow;
+	color: yellow;
+}
+
+#classroomCreator{
+	border-bottom: 1px solid rgb(88, 143, 55);
+}
+
+#classroomCreator label{
+	display: block;
+}
+
+#classroomCreator input{
+	width: 100%;
+	height: 2.5em;
+	text-align: center;
+	display: inline-block;
+}
+
+#classroomCreator select{
+	width: 100%;
+	height: 2.5em;
+	text-align: center;
+}
+
+#classroomCreator button{
+	width: 100%;
+	display: block;
+	height: 2.5em;
+	margin: 2vh auto 2vh auto;
+}
+
+#classroomUpdater label{
+	display: block;
+}
+
+#classroomUpdater input{
+	width: 100%;
+	height: 2.5em;
+	text-align: center;
+	display: inline-block;
+}
+
+#classroomUpdater select{
+	width: 100%;
+	height: 2.5em;
+	text-align: center;
+}
+
+#classroomUpdater button{
+	width: 100%;
+	display: block;
+	height: 2.5em;
+	margin: 2vh auto 2vh auto;
+}
+
+/*FOOTER*/
+#footer {
+	height: 10vh;
+	background-color: rgb(88, 143, 55);
+	position: fixed;
+	bottom: 0;
+	text-align: center;
 }
 
 
@@ -376,7 +447,7 @@ body {
 		margin: 10vh 8.33% 10vh 8.33%;
 	}
 
-	/*STUDENT HOME PAGE*/
+	/*STUDENT*/
 	#homeContainer {
 		display: flex;
 	}
@@ -413,7 +484,7 @@ body {
 		margin-left: auto;
 	}
 
-	/*TEACHER PAGE*/
+	/*TEACHER*/
 	.warnMessage {
 		height: 5vh;
 	}
@@ -431,6 +502,36 @@ body {
 	
 	#tableContainer table {
 		font-size: 1.5em;
+	}
+	
+	/*HEADMASTER*/
+	.navSelector {
+		margin-top: 2vh;
+		margin-bottom: 2vh;
+	}
+	
+	#classroomCreator input{
+		width: 25%;
+	}
+	
+	#classroomCreator select{
+		width: 25%;
+	}
+	
+	#classroomCreator button{
+		width: 50%;
+	}
+	
+	#classroomUpdater input{
+		width: 25%;
+	}
+	
+	#classroomUpdater select{
+		width: 25%;
+	}
+	
+	#classroomUpdater button{
+		width: 50%;
 	}
 }
 

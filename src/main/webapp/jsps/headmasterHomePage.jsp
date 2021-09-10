@@ -13,6 +13,20 @@
 	
 	
 	<body>
-		<%@ include file="privacyPolicy.jsp"%>
+		<div id="homeContainer" class="sm-col12 md-col12 lg-col12">
+			<!-- MAIN -->	
+			<div id="mainContainer" class="sm-col12 md-col9 lg-col9">
+			
+			</div>
+			
+			
+			
+			<!-- NAVBAR -->
+			<div id="studentHistory" class="sm-col12 md-col3 lg-col3">
+				<h2>Menu de navigation</h2>
+				<a href="${pageContext.request.contextPath}/headmaster/classrooms" class="font2em navSelector">Formations</a>
+				<a href="${pageContext.request.contextPath}/headmaster/users" class="font2em navSelector">Utilisateurs</a>
+			</div>
+		</div>
 	</body>
 </html>

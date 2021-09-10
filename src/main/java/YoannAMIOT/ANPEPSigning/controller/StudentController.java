@@ -49,10 +49,10 @@ public class StudentController {
 		int idUser = 0;
 		
 		//Checking if the user is still connected and if yes getting the user id
-		if(session.getAttribute("user") != null) {
+		if(user != null && user.getResponsability() == 0) {
 			idUser = user.getId();
 		} else {
-			return "redirect:login";
+			return "redirect:/login";
 		}
 		
         //Getting today's date
@@ -116,11 +116,11 @@ public class StudentController {
         int idUser = 0;
         
         //Checking if the user is still connected and if yes getting the user id
-        if(session.getAttribute("user") != null) {
-        	idUser = user.getId();
-        } else {
-        	return "redirect:login";
-        }
+		if(user != null && user.getResponsability() == 0) {
+			idUser = user.getId();
+		} else {
+			return "redirect:/login";
+		}
         
         //Getting today's date
 		long millis = System.currentTimeMillis();
@@ -151,11 +151,11 @@ public class StudentController {
         int idUser = 0;
         
         //Checking if the user is still connected and if yes getting the user id
-        if(session.getAttribute("user") != null) {
-        	idUser = user.getId();
-        } else {
-        	return "redirect:login";
-        }
+		if(user != null && user.getResponsability() == 0) {
+			idUser = user.getId();
+		} else {
+			return "redirect:/login";
+		}
         
         //Getting today's date
 		long millis = System.currentTimeMillis();
