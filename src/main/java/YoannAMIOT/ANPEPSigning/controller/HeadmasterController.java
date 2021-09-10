@@ -106,6 +106,7 @@ public class HeadmasterController {
 		List <Integer> studentsId = new ArrayList<Integer>();
 		boolean canCreateSchoolDay = false;
 		List <User> teachers = new ArrayList<User>();
+		List <User> allStudents = new ArrayList<User>();
 		
         //Checking if the user is still connected and if not we redirect to the login page
         HttpSession session = request.getSession(true);
@@ -158,6 +159,14 @@ public class HeadmasterController {
         if(anyExistingTeacher == true) {
         	teachers = userRepository.findAllUserByResponsability(1);
         }
+        
+        //Checking if there's any existing student
+        boolean anyExistingStudent = userRepository.existsAnyUserWithResponsability(0);
+        
+        //If there's any existing student we get the list of all the students
+        if(anyExistingStudent == true) {
+        	allStudents = userRepository.findAllUserByResponsability(0);
+        }
 		
     	//Attributes for the JSP
 		request.setAttribute("selectedClassroom", selectedClassroom);
@@ -166,6 +175,7 @@ public class HeadmasterController {
         request.setAttribute("classrooms", classrooms);
 		request.setAttribute("canCreateSchoolDay", canCreateSchoolDay);
         request.setAttribute("teachers", teachers);
+        request.setAttribute("allStudents", allStudents);
         
 		return "headmasterClassroom";
 	}
@@ -255,6 +265,21 @@ public class HeadmasterController {
     	
     	//Update the classroom in DB
     	classroomRepository.updateClassroom(classroom.getName(), classroom.getStartDate(), classroom.getEndDate(), teacherId, classroomId);
+    	
+    	return "redirect:/headmaster/classroom/" + id;    
+    }
+    
+    
+    
+	//POST OF THE ADD STUDENT//
+    @PostMapping("/headmaster/classroom/addStudent/{id}")
+    public String addStudentToClassroom(@PathVariable String id, HttpServletRequest request) {
+    	
+    	//Get the id of the student to add
+    	int idStudent = Integer.parseInt(request.getParameter("student"));
+    	
+    	//We add the user to the classroom;
+    	classroomRepository.addUserToClassroom(idStudent, Integer.parseInt(id));
     	
     	return "redirect:/headmaster/classroom/" + id;    
     }

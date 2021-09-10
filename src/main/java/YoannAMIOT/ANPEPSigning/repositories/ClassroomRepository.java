@@ -46,7 +46,14 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
 	//UPDATE OF THE CLASSROOM//
 	@Transactional
 	@Modifying
-	@Query(value = "UPDATE classroom c SET c.name = ?1, c.start_date = ?2, c.end_date = ?3, c.teacher_id = ?4 WHERE c.id = ?5 ", nativeQuery = true)
+	@Query(value = "UPDATE classroom c SET c.name = ?1, c.start_date = ?2, c.end_date = ?3, c.teacher_id = ?4 WHERE c.id = ?5", nativeQuery = true)
 	void updateClassroom(String name, Date startDate, Date endDate, int teacherId, int id);
 	
+	
+	
+	//ADD THE STUDENT TO THE CLASSROOM//
+	@Transactional
+	@Modifying
+	@Query(value = "INSERT INTO classrooms_students (id_user, id_classroom) VALUES (?1 , ?2)", nativeQuery = true)
+	void addUserToClassroom(int idStudent, int idClassroom);
 }
