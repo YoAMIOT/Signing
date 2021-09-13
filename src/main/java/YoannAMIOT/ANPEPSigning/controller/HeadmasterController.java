@@ -189,16 +189,43 @@ public class HeadmasterController {
 		
 		//Attributes variables for the JSP
 		boolean userSelected = false;
-		
+		List <User> allHeadmasters = new ArrayList<User>();
+		List <User> allTeachers = new ArrayList<User>();
+		List <User> allStudents = new ArrayList<User>();
+ 		
         //Checking if the user is still connected and if not we redirect to the login page
         HttpSession session = request.getSession(true);
 		User u = (User) session.getAttribute("user");
 		if(u == null || u.getResponsability() != 2) {
 			return "redirect:/login";
 		}
+        
+        //Get of all the headmasters
+		allHeadmasters = userRepository.findAllUserByResponsability(2);
+        
+        //Checking if there's any existing Teacher
+        boolean anyExistingTeacher = userRepository.existsAnyUserWithResponsability(1);
+        
+        //If there's any existing teacher we get the list of all the teachers
+        if(anyExistingTeacher == true) {
+        	allTeachers = userRepository.findAllUserByResponsability(1);
+        }
+        
+        //Checking if there's any existing Student
+        boolean anyExistingStudent = userRepository.existsAnyUserWithResponsability(1);
+        
+        //If there's any existing teacher we get the list of all the teachers
+        if(anyExistingStudent == true) {
+        	allStudents = userRepository.findAllUserByResponsability(0);
+        }
 		
     	//Attributes for the JSP
         request.setAttribute("userSelected", userSelected);
+        request.setAttribute("anyExistingTeacher", anyExistingTeacher);
+        request.setAttribute("anyExistingStudent", anyExistingStudent);
+        request.setAttribute("allStudents", allStudents);
+        request.setAttribute("allTeachers", allTeachers);
+        request.setAttribute("allHeadmasters", allHeadmasters);
         
 		return "headmasterUser";
 	}

@@ -27,6 +27,7 @@
 				<div id="headmasterMainWrapper">
 					<c:if test="${userSelected == false}">
 						<!-- USER CREATOR -->
+						<h1>Gestion des utilisateurs</h1>
 						<div class="teachStuffContainer creator" >
 							<h2 class="font2em">Créer un utilisateur</h2>
 							<form:form method="POST" action="addUser" modelAttribute="user">
@@ -53,6 +54,36 @@
 								<button type="submit" class="font1dot5em">Ajouter l'utilisateur</button>
 							</form:form>
 						</div>
+						
+						
+						
+						<!-- LIST OF USERS -->
+						<h2>Liste de tout les directeurs</h2>
+						<div class="teachStuffContainer">
+							<c:forEach var="h" items="${allHeadmasters}">
+								<a href="${pageContext.request.contextPath}/headmaster/user/${h.getId()}" class="userFromList font1dot5em">${h.getLastName()} ${h.getFirstName()}</a>
+							</c:forEach>
+						</div>
+
+						<c:set var="anyExistingTeacher" value="${anyExistingTeacher}"/>
+						<c:if test="${anyExistingTeacher == true}">
+							<h2>Liste de tout les formateurs</h2>
+							<div class="teachStuffContainer">
+								<c:forEach var="t" items="${allTeachers}">
+									<a href="${pageContext.request.contextPath}/headmaster/user/${t.getId()}" class="userFromList font1dot5em">${t.getLastName()} ${t.getFirstName()}</a>
+								</c:forEach>
+							</div>
+						</c:if>
+						
+						<c:set var="anyExistingStudent" value="${anyExistingStudent}"/>
+						<c:if test="${anyExistingStudent == true}">
+							<h2>Liste de tout les apprenants</h2>
+							<div class="teachStuffContainer">
+								<c:forEach var="s" items="${allStudents}">
+									<a href="${pageContext.request.contextPath}/headmaster/user/${s.getId()}" class="userFromList font1dot5em">${s.getLastName()} ${s.getFirstName()}</a>
+								</c:forEach>
+							</div>
+						</c:if>
 					</c:if>
 					
 					

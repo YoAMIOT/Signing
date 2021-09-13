@@ -385,6 +385,23 @@ body {
 	margin: 2vh auto 2vh auto;
 }
 
+.userFromList{
+	display: inline-block;
+	min-width: calc(50%-10px);
+	max-width: 100%;
+	margin: 10px;
+	border-bottom: 2px solid rgb(88, 143, 55);
+	text-decoration: none;
+	border-radius: 10px;
+	background-color: rgba(255,255,255,0.7);
+	color: rgb(88, 143, 55)
+}
+
+.userFromList:hover{
+	border-bottom: 2px solid orange;
+	color: orange;
+}
+
 /*FOOTER*/
 #footer {
 	height: 10vh;
