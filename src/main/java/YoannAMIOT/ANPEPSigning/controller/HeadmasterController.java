@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -182,6 +183,28 @@ public class HeadmasterController {
 	
 	
 	
+	//GET OF THE HEADMASTER USERS PAGE//
+	@GetMapping("/headmaster/users")
+	public String showHeadmasterUsers(HttpServletRequest request, @ModelAttribute User user) {
+		
+		//Attributes variables for the JSP
+		boolean userSelected = false;
+		
+        //Checking if the user is still connected and if not we redirect to the login page
+        HttpSession session = request.getSession(true);
+		User u = (User) session.getAttribute("user");
+		if(u == null || u.getResponsability() != 2) {
+			return "redirect:/login";
+		}
+		
+    	//Attributes for the JSP
+        request.setAttribute("userSelected", userSelected);
+        
+		return "headmasterUser";
+	}
+	
+	
+	
 	//GET OF THE HEADMASTER CREATE SCHOOL DAY//
 	@GetMapping("/headmaster/headmasterCreateSchoolDay/{id}")
 	public String createShoolDayForClassroom(@PathVariable String id, HttpServletRequest request) {
@@ -226,22 +249,6 @@ public class HeadmasterController {
 	
 	
 	
-	//GET OF THE HEADMASTER USERS PAGE//
-	@GetMapping("/headmaster/users")
-	public String showHeadmasterUsers(HttpServletRequest request) {
-		
-        //Checking if the user is still connected and if not we redirect to the login page
-        HttpSession session = request.getSession(true);
-		User user = (User) session.getAttribute("user");
-		if(user == null || user.getResponsability() != 2) {
-			return "redirect:/login";
-		}
-        
-		return "";
-	}
-	
-	
-	
 	//POST OF THE ADD CLASSROOM//
     @PostMapping("/headmaster/addClassroom")
     public String addClassroom(@ModelAttribute Classroom classroom, HttpServletRequest request) {
@@ -271,7 +278,30 @@ public class HeadmasterController {
     
     
     
-	//POST OF THE ADD STUDENT//
+    //POST OF THE ADD USER//
+    @PostMapping("/headmaster/addUser")
+    public String addUser(@ModelAttribute User user) {
+    	
+    	//ENCRYPTING OF THE PASSWORD//
+    	user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+    	
+    	//FORCING THE LASTNAME IN UPPERCASE//
+    	user.setLastName(user.getLastName().toUpperCase());
+    	
+    	//FORCING THE FIRST LETTER OF FIRSTNAME IN UPPERCASE//
+    	String FirstLetter = user.getFirstName().substring(0,1).toUpperCase();
+    	String Rest = user.getFirstName().substring(1);
+    	user.setFirstName(FirstLetter + Rest);
+    	
+    	//SAVING TO DB//
+    	userRepository.save(user);
+    	
+    	return "redirect:/headmaster/users";
+    }
+    
+    
+    
+	//POST OF THE ADD STUDENT TO CLASSROOM//
     @PostMapping("/headmaster/classroom/addStudent/{id}")
     public String addStudentToClassroom(@PathVariable String id, HttpServletRequest request) {
     	

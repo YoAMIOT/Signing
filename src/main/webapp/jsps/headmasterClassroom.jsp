@@ -29,7 +29,7 @@
 				<div id="headmasterMainWrapper">
 					<c:if test="${classroomSelected == false}">
 						<!-- CLASSROOM CREATOR -->
-						<div id="classroomCreator" class="teachStuffContainer">
+						<div class="teachStuffContainer creator">
 							<h2 class="font2em">Créer une formation</h2>
 							
 							<c:set var="anyExistingTeacher" value="${anyExistingTeacher}"/>
@@ -107,7 +107,7 @@
 						
 						
 						<!-- UPDATE CLASSROOM -->
-						<div id="classroomUpdater" class="teachStuffContainer">
+						<div class="teachStuffContainer creator">
 							<h2 class="font2em">Modifier la formation</h2>
 							<form:form method="POST" action="updateClassroom/${selectedClassroom.getId()}" modelAttribute="classroom">
 								<label for="name" class="font1dot5em">Nom de la formation:</label>

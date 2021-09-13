@@ -340,58 +340,6 @@ body {
 	color: yellow;
 }
 
-#classroomCreator{
-	border-bottom: 1px solid rgb(88, 143, 55);
-}
-
-#classroomCreator label{
-	display: block;
-}
-
-#classroomCreator input{
-	width: 100%;
-	height: 2.5em;
-	text-align: center;
-	display: inline-block;
-}
-
-#classroomCreator select{
-	width: 100%;
-	height: 2.5em;
-	text-align: center;
-}
-
-#classroomCreator button{
-	width: 100%;
-	display: block;
-	height: 2.5em;
-	margin: 2vh auto 2vh auto;
-}
-
-#classroomUpdater label{
-	display: block;
-}
-
-#classroomUpdater input{
-	width: 100%;
-	height: 2.5em;
-	text-align: center;
-	display: inline-block;
-}
-
-#classroomUpdater select{
-	width: 100%;
-	height: 2.5em;
-	text-align: center;
-}
-
-#classroomUpdater button{
-	width: 100%;
-	display: block;
-	height: 2.5em;
-	margin: 2vh auto 2vh auto;
-}
-
 #classroomUserAdder label{
 	display: block;
 }
@@ -409,6 +357,33 @@ body {
 	margin: 2vh auto 2vh auto;
 }
 
+.creator{
+	border-bottom: 1px solid rgb(88, 143, 55);
+}
+
+.creator label{
+	display: block;
+}
+
+.creator input{
+	width: 100%;
+	height: 2.5em;
+	text-align: center;
+	display: inline-block;
+}
+
+.creator select{
+	width: 100%;
+	height: 2.5em;
+	text-align: center;
+}
+
+.creator button{
+	width: 100%;
+	display: block;
+	height: 2.5em;
+	margin: 2vh auto 2vh auto;
+}
 
 /*FOOTER*/
 #footer {
@@ -530,30 +505,6 @@ body {
 		margin-bottom: 2vh;
 	}
 	
-	#classroomCreator input{
-		width: 25%;
-	}
-	
-	#classroomCreator select{
-		width: 25%;
-	}
-	
-	#classroomCreator button{
-		width: 50%;
-	}
-	
-	#classroomUpdater input{
-		width: 25%;
-	}
-	
-	#classroomUpdater select{
-		width: 25%;
-	}
-	
-	#classroomUpdater button{
-		width: 50%;
-	}
-	
 	#classroomUserAdder select{
 		width: 25%;
 	}
@@ -566,6 +517,18 @@ body {
 		height: 100vh;
 		overflow-y: scroll;
 		overflow-x: hidden; 
+	}
+	
+	.creator input{
+		width: 25%;
+	}
+	
+	.creator select{
+		width: 25%;
+	}
+	
+	.creator button{
+		width: 50%;
 	}
 }
 
