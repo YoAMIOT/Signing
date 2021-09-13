@@ -27,7 +27,7 @@
 				<div id="headmasterMainWrapper">
 					<c:if test="${userSelected == false}">
 						<!-- USER CREATOR -->
-						<div class="teachStuffContainer creator">
+						<div class="teachStuffContainer creator" >
 							<h2 class="font2em">Créer un utilisateur</h2>
 							<form:form method="POST" action="addUser" modelAttribute="user">
 						
