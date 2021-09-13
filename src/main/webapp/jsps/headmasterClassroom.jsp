@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -62,7 +63,16 @@
 					
 					
 					<c:if test="${classroomSelected == true}">
-						<h1>${selectedClassroom.getName()}</h1>
+						<!-- CLASSROOM INFOS -->
+						<div class="teachStuffContainer">
+							<h1>${selectedClassroom.getName()}</h1>
+							<p class="font1dot5em">Date de début: <fmt:formatDate pattern = "dd/MM/yyyy" value = "${selectedClassroom.getStartDate()}"/></p>
+							<p class="font1dot5em">Date de fin: <fmt:formatDate pattern = "dd/MM/yyyy" value = "${selectedClassroom.getEndDate()}"/></p>
+							<p class="font1dot5em">Formateur référent: ${selectedClassroom.getTeacher().getLastName()} ${selectedClassroom.getTeacher().getFirstName()}</p>
+						</div>
+						
+						
+						
 						<!-- CREATE SCHOOL DAY -->
 						<div class="teachStuffContainer">
 						<h2 class="font2em">Jour de formation</h2>

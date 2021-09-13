@@ -24,7 +24,14 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM user u WHERE u.responsability = ?1", nativeQuery = true)
 	boolean existsAnyUserWithResponsability(int responsability);
 	
-	//GET ALL THE TEACHERS
+	//GET ALL THE USERS BY RESPONSABILITY
 	@Query(value = "SELECT * FROM user u WHERE u.responsability = ?1", nativeQuery = true)
 	List<User> findAllUserByResponsability(int responsability);
+	
+	
+	
+	//GET ALL THE STUDENTS THAT ARE NOT ALREADY IN THIS CLASSROOM
+	@Query(value = "SELECT * FROM user u WHERE u.responsability = 0 AND u.id NOT IN (SELECT id_user FROM classrooms_students WHERE id_classroom = ?1);", nativeQuery = true)
+	List<User> findAllStudentNotInClassroom(int classroomId);
+	
 }

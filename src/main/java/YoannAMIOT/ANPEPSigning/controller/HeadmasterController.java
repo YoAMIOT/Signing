@@ -163,9 +163,9 @@ public class HeadmasterController {
         //Checking if there's any existing student
         boolean anyExistingStudent = userRepository.existsAnyUserWithResponsability(0);
         
-        //If there's any existing student we get the list of all the students
+        //If there's any existing student we get the list of all the students not in classroom
         if(anyExistingStudent == true) {
-        	allStudents = userRepository.findAllUserByResponsability(0);
+        	allStudents = userRepository.findAllStudentNotInClassroom(Integer.parseInt(id));
         }
 		
     	//Attributes for the JSP
