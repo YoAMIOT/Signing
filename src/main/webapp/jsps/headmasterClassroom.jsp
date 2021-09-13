@@ -68,41 +68,79 @@
 							<h1>${selectedClassroom.getName()}</h1>
 							<p class="font1dot5em">Date de début: <fmt:formatDate pattern = "dd/MM/yyyy" value = "${selectedClassroom.getStartDate()}"/></p>
 							<p class="font1dot5em">Date de fin: <fmt:formatDate pattern = "dd/MM/yyyy" value = "${selectedClassroom.getEndDate()}"/></p>
-							<p class="font1dot5em">Formateur référent: ${selectedClassroom.getTeacher().getLastName()} ${selectedClassroom.getTeacher().getFirstName()}</p>
+							<p class="font1dot5em">Formateur référent: <a href="${pageContext.request.contextPath}/headmaster/user/${selectedClassroom.getTeacher().getId()}" class="userFromList">${selectedClassroom.getTeacher().getLastName()} ${selectedClassroom.getTeacher().getFirstName()}</a></p>
 						</div>
+						
+						
+						
+						<!-- STUDENTS LIST -->
+						<c:set var="studentInThisClassroomExists" value="${studentInThisClassroomExists}"/>
+						<c:if test="${studentInThisClassroomExists == true}">
+							<div class="teachStuffContainer">
+								<h2 class="font2em">Liste des apprenants de la formation</h2>
+								<c:forEach var="s" items="${studentsOfClassroom}">
+									<a href="${pageContext.request.contextPath}/headmaster/user/${s.getId()}" class="userFromList font1dot5em">${s.getLastName()} ${s.getFirstName()}</a>
+								</c:forEach>
+							</div>
 						
 						
 						
 						<!-- CREATE SCHOOL DAY -->
-						<div class="teachStuffContainer">
-						<h2 class="font2em">Jour de formation</h2>
-							<c:set var="canCreateSchoolDay" value="${canCreateSchoolDay}" />
-							<c:if test="${canCreateSchoolDay == true}">
-								<p class="font1dot5em">Cliquez sur le bouton ci-dessous pour créer une journée de formation et permettre aux apprenants de la formation d'émarger:</p>
-								<a id="createSchoolDayButton" href="${pageContext.request.contextPath}/headmaster/headmasterCreateSchoolDay/${selectedClassroom.getId()}" class="font1dot5em">Créer une journée de formation pour ${selectedClassroom.getName()}</a>
-							</c:if>
-							<c:if test="${canCreateSchoolDay == false}">
-									<p class="font1dot5em">Aujourd'hui est un jour de formation pour ${selectedClassroom.getName()}</p>
-							</c:if>
-						</div>
+							<div class="teachStuffContainer">
+							<h2 class="font2em">Jour de formation</h2>
+								<c:set var="canCreateSchoolDay" value="${canCreateSchoolDay}" />
+								<c:if test="${canCreateSchoolDay == true}">
+									<p class="font1dot5em">Cliquez sur le bouton ci-dessous pour créer une journée de formation et permettre aux apprenants de la formation d'émarger:</p>
+									<a id="createSchoolDayButton" href="${pageContext.request.contextPath}/headmaster/headmasterCreateSchoolDay/${selectedClassroom.getId()}" class="font1dot5em">Créer une journée de formation pour ${selectedClassroom.getName()}</a>
+								</c:if>
+							</div>
+						</c:if>
 						
 						
 						
 						<!-- ADD STUDENT TO CLASSROOM -->
-						<div id="classroomUserAdder" class="teachStuffContainer">
-							<h2 class="font2em">Ajouter un apprenant à la formation</h2>
-							<form method="POST" action="${pageContext.request.contextPath}/headmaster/classroom/addStudent/${classroom.getId()}">
-								<label for="student" class="font1dot5em">Apprenant:</label>
-								<select name="student" id="student" class="font1dot5em">
-									<c:forEach var="s" items="${allStudents}">
-										<option value="${s.getId()}" class="font1dot5em">${s.getLastName()} ${s.getFirstName()}</option>
-									</c:forEach>
-								</select>
-								<div>
-									<button type="submit" class="font1dot5em">Ajouter l'apprenant</button>
-								</div>
-							</form>
-						</div>
+						<c:set var="anyExistingStudent" value="${anyExistingStudent}"/>
+						<c:if test="${anyExistingStudent == true}">
+							<div id="classroomUserAdder" class="teachStuffContainer">
+								<h2 class="font2em">Ajouter un apprenant à la formation</h2>
+								<form method="POST" action="${pageContext.request.contextPath}/headmaster/classroom/addStudent/${classroom.getId()}">
+									<label for="student" class="font1dot5em">Apprenant:</label>
+									<select name="student" id="student" class="font1dot5em">
+										<c:forEach var="s" items="${allStudentsNotInThisClassroom}">
+											<option value="${s.getId()}" class="font1dot5em">${s.getLastName()} ${s.getFirstName()}</option>
+										</c:forEach>
+									</select>
+									<div>
+										<button type="submit" class="font1dot5em">Ajouter l'apprenant à la formation</button>
+									</div>
+								</form>
+							</div>
+						</c:if>
+						<c:if test="${anyExistingStudent == false}">
+							<div class="teachStuffContainer">
+								<p>Il n'existe aucun apprenant, créer un apprenant pour l'ajouter à la formation.</p>
+							</div>
+						</c:if>
+						
+						
+						
+						<!-- REMOVE STUDENT FROM CLASSROOM -->
+						<c:if test="${studentInThisClassroomExists == true}">
+							<div id="classroomUserAdder" class="teachStuffContainer">
+								<h2 class="font2em">Supprimer un apprenant à la formation</h2>
+								<form method="POST" action="${pageContext.request.contextPath}/headmaster/classroom/removeStudent/${classroom.getId()}">
+									<label for="student" class="font1dot5em">Apprenant:</label>
+									<select name="student" id="student" class="font1dot5em">
+										<c:forEach var="s" items="${studentsOfClassroom}">
+											<option value="${s.getId()}" class="font1dot5em">${s.getLastName()} ${s.getFirstName()}</option>
+										</c:forEach>
+									</select>
+									<div>
+										<button type="submit" class="font1dot5em">Supprimer l'apprenant de la formation</button>
+									</div>
+								</form>
+							</div>
+						</c:if>
 						
 						
 						
@@ -111,7 +149,7 @@
 							<h2 class="font2em">Modifier la formation</h2>
 							<form:form method="POST" action="updateClassroom/${selectedClassroom.getId()}" modelAttribute="classroom">
 								<label for="name" class="font1dot5em">Nom de la formation:</label>
-								<form:input path="name" class="font1dot5em" id="name" placeholder="Nom de la formation" required="required" />
+								<form:input path="name" class="font1dot5em" id="name" placeholder="Nom de la formation" required="required" value="${selectedClassroom.getName()}"/>
 								
 								<label for="StartDate" class="font1dot5em">Date de début de formation:</label>
 								<form:input type="date" class="font1dot5em" path="StartDate" id="StartDate" required="required" />

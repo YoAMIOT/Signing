@@ -107,7 +107,8 @@ public class HeadmasterController {
 		List <Integer> studentsId = new ArrayList<Integer>();
 		boolean canCreateSchoolDay = false;
 		List <User> teachers = new ArrayList<User>();
-		List <User> allStudents = new ArrayList<User>();
+		List <User> allStudentsNotInThisClassroom = new ArrayList<User>();
+		List <User> studentsOfClassroom = new ArrayList<User>();
 		
         //Checking if the user is still connected and if not we redirect to the login page
         HttpSession session = request.getSession(true);
@@ -140,6 +141,8 @@ public class HeadmasterController {
 			
 			//For each students id in the list
 			for (Integer s : studentsId) {
+				//Add in the list of students of the class the student we get by it's id
+				studentsOfClassroom.add(userRepository.findStudentById(s));
 				//Check if the student already has a history for today
 				boolean historyAlreadyExists = historyRepository.existsByStudentIdAndDate(s, currentDate);
 				//If the student already has a history we add 1 to the counter
@@ -166,7 +169,7 @@ public class HeadmasterController {
         
         //If there's any existing student we get the list of all the students not in classroom
         if(anyExistingStudent == true) {
-        	allStudents = userRepository.findAllStudentNotInClassroom(Integer.parseInt(id));
+        	allStudentsNotInThisClassroom = userRepository.findAllStudentNotInClassroom(Integer.parseInt(id));
         }
 		
     	//Attributes for the JSP
@@ -176,7 +179,11 @@ public class HeadmasterController {
         request.setAttribute("classrooms", classrooms);
 		request.setAttribute("canCreateSchoolDay", canCreateSchoolDay);
         request.setAttribute("teachers", teachers);
-        request.setAttribute("allStudents", allStudents);
+        request.setAttribute("allStudentsNotInThisClassroom", allStudentsNotInThisClassroom);
+        request.setAttribute("studentInThisClassroomExists", studentInThisClassroomExists);
+        request.setAttribute("studentsOfClassroom", studentsOfClassroom);
+        request.setAttribute("anyExistingStudent", anyExistingStudent);
+
         
 		return "headmasterClassroom";
 	}
@@ -214,7 +221,7 @@ public class HeadmasterController {
         //Checking if there's any existing Student
         boolean anyExistingStudent = userRepository.existsAnyUserWithResponsability(1);
         
-        //If there's any existing teacher we get the list of all the teachers
+        //If there's any existing student we get the list of all the teachers
         if(anyExistingStudent == true) {
         	allStudents = userRepository.findAllUserByResponsability(0);
         }
@@ -227,6 +234,28 @@ public class HeadmasterController {
         request.setAttribute("allTeachers", allTeachers);
         request.setAttribute("allHeadmasters", allHeadmasters);
         
+		return "headmasterUser";
+	}
+	
+	
+	
+	//GET OF THE HEADMASTER USER PAGE//
+	@GetMapping("/headmaster/user/{id}")
+	public String showHeadmasterUser(@PathVariable String id, HttpServletRequest request) {
+		
+		//Attributes variables for the JSP
+		boolean userSelected = true;
+ 		
+        //Checking if the user is still connected and if not we redirect to the login page
+        HttpSession session = request.getSession(true);
+		User u = (User) session.getAttribute("user");
+		if(u == null || u.getResponsability() != 2) {
+			return "redirect:/login";
+		}
+
+    	//Attributes for the JSP
+        request.setAttribute("userSelected", userSelected);
+		
 		return "headmasterUser";
 	}
 	
@@ -337,6 +366,21 @@ public class HeadmasterController {
     	
     	//We add the user to the classroom;
     	classroomRepository.addUserToClassroom(idStudent, Integer.parseInt(id));
+    	
+    	return "redirect:/headmaster/classroom/" + id;    
+    }
+    
+    
+    
+	//POST OF THE REMOVE STUDENT FROM CLASSROOM//
+    @PostMapping("/headmaster/classroom/removeStudent/{id}")
+    public String removeStudentToClassroom(@PathVariable String id, HttpServletRequest request) {
+    	
+    	//Get the id of the student to add
+    	int idStudent = Integer.parseInt(request.getParameter("student"));
+    	
+    	//We add the user to the classroom;
+    	classroomRepository.removeUserFromClassroom(idStudent, Integer.parseInt(id));
     	
     	return "redirect:/headmaster/classroom/" + id;    
     }

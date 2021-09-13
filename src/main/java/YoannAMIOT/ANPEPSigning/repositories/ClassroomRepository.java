@@ -56,4 +56,10 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
 	@Modifying
 	@Query(value = "INSERT INTO classrooms_students (id_user, id_classroom) VALUES (?1 , ?2)", nativeQuery = true)
 	void addUserToClassroom(int idStudent, int idClassroom);
+	
+	//REMOVE THE STUDENT FROM THE CLASSROOM//
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM classrooms_students WHERE id_user = ?1 AND id_classroom = ?2", nativeQuery = true)
+	void removeUserFromClassroom(int idStudent, int idClassroom);
 }
