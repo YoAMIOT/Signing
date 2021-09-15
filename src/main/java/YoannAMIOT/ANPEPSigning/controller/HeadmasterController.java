@@ -37,7 +37,7 @@ public class HeadmasterController {
 	@GetMapping("/headmaster")
 	public String showHeadmasterHome(HttpServletRequest request) {
 		
-        //Checking if the user is still connected and if not we redirect to the login page
+        //Checking if the user is still connected and if not we to the login page
         HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
 		if(user == null || user.getResponsability() != 2) {
@@ -200,7 +200,7 @@ public class HeadmasterController {
 		List <User> allTeachers = new ArrayList<User>();
 		List <User> allStudents = new ArrayList<User>();
  		
-        //Checking if the user is still connected and if not we redirect to the login page
+        //Checking if the user is still connected and if not we redirect to the page
         HttpSession session = request.getSession(true);
 		User u = (User) session.getAttribute("user");
 		if(u == null || u.getResponsability() != 2) {
@@ -252,9 +252,19 @@ public class HeadmasterController {
 		if(u == null || u.getResponsability() != 2) {
 			return "redirect:/login";
 		}
+		
+		//Get the user
+		User selectedUser = userRepository.findStudentById(Integer.parseInt(id));
 
+		//We get all the history where the student was absent
+		List<History> absentHistories = historyRepository.findByStudentsNotSigned(Integer.parseInt(id));
+		//Set the absent History of the student
+		selectedUser.setAbsentHistories(absentHistories);
+
+		
     	//Attributes for the JSP
         request.setAttribute("userSelected", userSelected);
+        request.setAttribute("selectedUser", selectedUser);
 		
 		return "headmasterUser";
 	}

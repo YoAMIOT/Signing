@@ -19,7 +19,10 @@ public class LoginController {
 		
 		//Clearing the session
 		HttpSession session = request.getSession(true);
-		session.removeAttribute("user");
+		User u = (User) session.getAttribute("user");
+		if(u != null) {
+			session.invalidate();
+		}
 		
 		//Return the JSP
 		return "login";

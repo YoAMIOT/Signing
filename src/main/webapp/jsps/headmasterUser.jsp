@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -10,10 +11,11 @@
 		<meta name="robots" content="noindex, nofollow">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 		<c:set var="userSelected" value="${userSelected}"/>
+		<c:set var="selectedUser" value="${selectedUser}"/>
 		<title>
 			<c:if test="${userSelected == false}">Gestion des utilisateurs</c:if>
 			<c:if test="${userSelected == true}">
-				USER
+				${selectedUser.getLastName()} ${selectedUser.getFirstName()}
 			</c:if>
 		</title>
 	</head>
@@ -89,8 +91,51 @@
 					
 					
 					<c:if test="${userSelected == true}">
-
-					</c:if>
+						<!-- USER'S INFOS -->
+						<div class="teachStuffContainer">
+							<h1>${selectedUser.getLastName()} ${selectedUser.getFirstName()}</h1>
+							<p class="font1dot5em">Résponsabilité: 
+								<c:if test="${selectedUser.getResponsability() == 0}">Apprenant</c:if>
+								<c:if test="${selectedUser.getResponsability() == 1}">Formateur</c:if>
+								<c:if test="${selectedUser.getResponsability() == 2}">Directeur</c:if>
+							</p>
+							<p class="font1dot5em">Email: ${selectedUser.getEmail()}</p>
+						</div>
+						
+						
+						
+						<!-- ABSENCE HISTORIES -->
+						<c:if test="${selectedUser.getResponsability() == 0}">
+							<div id="studentsHistories" class="teachStuffContainer">
+								<h3 class="font1dot5em">Historiques des absences de ${selectedUser.getLastName()} ${selectedUser.getFirstName()}</h3>
+								<div class="studentHistoryContainer">
+									<c:if test="${selectedUser.getAbsentHistories().size() > 0}">
+										<table class="studentHistoryTable">
+											<thead>
+												<tr>
+													<th colspan="1" class="tableHead">Apprenant</th>
+													<c:forEach var="h" items="${selectedUser.getAbsentHistories()}">
+														<th colspan="1" class="tableHead tableBody"><fmt:formatDate pattern = "dd/MM/yyyy" value = "${h.getDate()}"/></th>
+													</c:forEach>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td colspan="1">${selectedUser.getLastName()} ${selectedUser.getFirstName()}</td>
+													<c:forEach var="h" items="${selectedUser.getAbsentHistories()}">
+														<td colspan="1" class="redBg tableBody">Absent</td>
+													</c:forEach>
+												</tr>
+											</tbody>
+										</table>
+									</c:if>
+									<c:if test="${selectedUser.getAbsentHistories().size() == 0}">
+										<p class="font1dot5em borderGreen">${selectedUser.getLastName()} ${selectedUser.getFirstName()} n'a jamais été absent!</p>
+									</c:if>
+								</div>
+							</div>
+						</c:if>
+					</c:if>					
 				</div>
 			</div>
 	
