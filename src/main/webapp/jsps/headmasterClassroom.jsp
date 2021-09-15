@@ -34,7 +34,7 @@
 							
 							<c:set var="anyExistingTeacher" value="${anyExistingTeacher}"/>
 							<c:if test="${anyExistingTeacher == true}">
-								<form:form method="POST" action="addClassroom" modelAttribute="classroom">
+								<form:form method="POST" action="${pageContext.request.contextPath}/headmaster/classroom/addClassroom" modelAttribute="classroom">
 									<label for="name" class="font1dot5em">Nom de la formation:</label>
 									<form:input path="name" class="font1dot5em" id="name" placeholder="Nom de la formation" required="required" />
 									
@@ -147,7 +147,7 @@
 						<!-- UPDATE CLASSROOM -->
 						<div class="teachStuffContainer creator">
 							<h2 class="font2em">Modifier la formation</h2>
-							<form:form method="POST" action="updateClassroom/${selectedClassroom.getId()}" modelAttribute="classroom">
+							<form:form method="POST" action="${pageContext.request.contextPath}/headmaster/classroom/updateClassroom/${selectedClassroom.getId()}" modelAttribute="classroom">
 								<label for="name" class="font1dot5em">Nom de la formation:</label>
 								<form:input path="name" class="font1dot5em" id="name" placeholder="Nom de la formation" required="required" value="${selectedClassroom.getName()}"/>
 								

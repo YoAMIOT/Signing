@@ -77,8 +77,7 @@
 								<div class="teachStuffContainer">
 									<h2 class="font1dot5em">CONTRESEING</h2>
 									<div id="counterSignContainer">
-										<form method="POST"
-											action="${pageContext.request.contextPath}/countersign/${classroom.getId()}">
+										<form method="POST" action="${pageContext.request.contextPath}/countersign/${classroom.getId()}">
 											<div id="tableContainer" class="sm-col12 md-col12 lg-col12">
 												<table>
 													<thead>

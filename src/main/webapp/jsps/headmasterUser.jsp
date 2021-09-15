@@ -32,19 +32,19 @@
 						<h1>Gestion des utilisateurs</h1>
 						<div class="teachStuffContainer creator" >
 							<h2 class="font2em">Créer un utilisateur</h2>
-							<form:form method="POST" action="addUser" modelAttribute="user">
+							<form:form method="POST" action="${pageContext.request.contextPath}/headmaster/user/addUser" modelAttribute="user">
 						
 								<label for="email" class="font1dot5em">Email:</label>
-								<form:input path="email" class="font1dot5em" placeholder="Email" required="required" />
+								<form:input path="email" class="font1dot5em" placeholder="Email" required="required" autocomplete="off"/>
 									
 								<label for="firstName" class="font1dot5em">Prénom:</label>
-								<form:input path="firstName" class="font1dot5em" placeholder="Prénom" required="required" />
+								<form:input path="firstName" class="font1dot5em" placeholder="Prénom" required="required" autocomplete="off"/>
 										
 								<label for="lastName" class="font1dot5em">Nom:</label>
-								<form:input path="lastName" class="font1dot5em" placeholder="Nom" required="required" />
+								<form:input path="lastName" class="font1dot5em" placeholder="Nom" required="required" autocomplete="off"/>
 										
 								<label for="password" class="font1dot5em">Mot de Passe:</label>
-								<form:input path="password" class="font1dot5em" minlength="5" placeholder="Mot de Passe" required="required" />
+								<form:input path="password" class="font1dot5em" minlength="5" placeholder="Mot de Passe" required="required" autocomplete="off"/>
 										
 								<label for="responsability" class="font1dot5em">Responsabilité: </label>
 								<form:select path="responsability" class="font1dot5em" required="required" >
@@ -135,6 +135,36 @@
 								</div>
 							</div>
 						</c:if>
+						
+						
+						
+						<!-- UPDATE USER -->
+						<div class="teachStuffContainer creator">
+							<h2 class="font2em">Modifier l'utilisateur</h2>
+							<form:form method="POST" action="${pageContext.request.contextPath}/headmaster/user/updateUser/${selectedUser.getId()}" modelAttribute="user">
+						
+								<label for="email" class="font1dot5em">Email:</label>
+								<form:input path="email" class="font1dot5em" placeholder="Email" required="required" autocomplete="off"/>
+									
+								<label for="firstName" class="font1dot5em">Prénom:</label>
+								<form:input path="firstName" class="font1dot5em" placeholder="Prénom" required="required" autocomplete="off"/>
+										
+								<label for="lastName" class="font1dot5em">Nom:</label>
+								<form:input path="lastName" class="font1dot5em" placeholder="Nom" required="required" autocomplete="off"/>
+										
+								<label for="password" class="font1dot5em">Mot de Passe:</label>
+								<form:input path="password" class="font1dot5em" minlength="5" placeholder="Mot de Passe" required="required" autocomplete="off"/>
+										
+								<label for="responsability" class="font1dot5em">Responsabilité: </label>
+								<form:select path="responsability" class="font1dot5em" required="required" >
+									<form:option value="0">Apprenant</form:option>
+									<form:option value="1">Formateur</form:option>
+									<form:option value="2">Directeur</form:option>
+								</form:select>
+										
+								<button type="submit" class="font1dot5em">Modifier l'utilisateur</button>
+							</form:form>
+						</div>
 					</c:if>					
 				</div>
 			</div>

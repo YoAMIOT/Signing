@@ -241,7 +241,7 @@ public class HeadmasterController {
 	
 	//GET OF THE HEADMASTER USER PAGE//
 	@GetMapping("/headmaster/user/{id}")
-	public String showHeadmasterUser(@PathVariable String id, HttpServletRequest request) {
+	public String showHeadmasterUser(@PathVariable String id, HttpServletRequest request, @ModelAttribute User user) {
 		
 		//Attributes variables for the JSP
 		boolean userSelected = true;
@@ -252,7 +252,7 @@ public class HeadmasterController {
 		if(u == null || u.getResponsability() != 2) {
 			return "redirect:/login";
 		}
-		
+
 		//Get the user
 		User selectedUser = userRepository.findStudentById(Integer.parseInt(id));
 
@@ -316,7 +316,7 @@ public class HeadmasterController {
 	
 	
 	//POST OF THE ADD CLASSROOM//
-    @PostMapping("/headmaster/addClassroom")
+    @PostMapping("/headmaster/classroom/addClassroom")
     public String addClassroom(@ModelAttribute Classroom classroom, HttpServletRequest request) {
 
     	classroomRepository.save(classroom);
@@ -345,7 +345,7 @@ public class HeadmasterController {
     
     
     //POST OF THE ADD USER//
-    @PostMapping("/headmaster/addUser")
+    @PostMapping("/headmaster/user/addUser")
     public String addUser(@ModelAttribute User user) {
     	
     	//ENCRYPTING OF THE PASSWORD//
@@ -363,6 +363,28 @@ public class HeadmasterController {
     	userRepository.save(user);
     	
     	return "redirect:/headmaster/users";
+    }
+    
+    
+    
+	//POST OF THE UPDATE USER//
+    @PostMapping("/headmaster/user/updateUser/{id}")
+    public String updateUser(@PathVariable String id, HttpServletRequest request, @ModelAttribute User user) {
+
+    	//ENCRYPTING OF THE PASSWORD//
+    	user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+    	
+    	//FORCING THE LASTNAME IN UPPERCASE//
+    	user.setLastName(user.getLastName().toUpperCase());
+    	
+    	//FORCING THE FIRST LETTER OF FIRSTNAME IN UPPERCASE//
+    	String FirstLetter = user.getFirstName().substring(0,1).toUpperCase();
+    	String Rest = user.getFirstName().substring(1);
+    	user.setFirstName(FirstLetter + Rest);
+    	
+    	userRepository.updateUser(user.getEmail(), user.getFirstName(), user.getLastName(), user.getPassword(), user.getResponsability(), user.getId());
+    	
+    	return "redirect:/headmaster/user/" + id;    
     }
     
     

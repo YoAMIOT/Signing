@@ -107,7 +107,7 @@ public class StudentController {
 	
 	
 	//POST OF THE MORNING SIGN//
-	@PostMapping("/morningSigning")
+	@PostMapping("/studentHome/morningSigning")
 	public String submitMorningSign(HttpServletRequest request) {
 		
         //Getting the Student's Id
@@ -142,7 +142,7 @@ public class StudentController {
 	
 	
 	//POST OF THE AFTERNOON SIGN//
-	@PostMapping("/afternoonSigning")
+	@PostMapping("/studentHome/afternoonSigning")
 	public String submitAfternoonSign(HttpServletRequest request) {
 		
         //Getting the Student's Id

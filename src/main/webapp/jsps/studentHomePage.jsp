@@ -35,7 +35,7 @@
 							<!-- IF THE STUDENT HASN'T ALREADY SIGNED THIS MORNING -->
 							<c:if test="${morningSigned == false}">
 								<div id="morningForm" class="font1dot5em">
-									<form:form method="POST" action="morningSigning" modelAttribute="history" acceptCharset="utf-8">
+									<form:form method="POST" action="${pageContext.request.contextPath}/studentHome/morningSigning" modelAttribute="history" acceptCharset="utf-8">
 										<div>
 											<form:checkbox class="signingCheckbox" path="morningSign" value="true" required="required" />
 											<label for="checkBox">J'atteste sur l'honneur être présent à mon poste de travail ce matin afin de suivre ma formation.</label>
@@ -66,7 +66,7 @@
     						<!-- IF THE STUDENT HASN'T ALREADY SIGNED THIS MORNING -->
     						<c:if test="${afternoonSigned == false}">
 								<div id="afternoonForm" class="font1dot5em">
-									<form:form method="POST" action="afternoonSigning" modelAttribute="history" acceptCharset="utf-8">
+									<form:form method="POST" action="${pageContext.request.contextPath}/studentHome/afternoonSigning" modelAttribute="history" acceptCharset="utf-8">
 										<div>
 											<form:checkbox class="signingCheckbox" path="afternoonSign" value="true" required="required" />
 											<label for="checkBox">J'atteste sur l'honneur être présent à mon poste de travail cet après-midi afin de suivre ma formation.</label>
