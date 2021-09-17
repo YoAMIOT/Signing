@@ -85,15 +85,36 @@
 						
 						
 						
-						<!-- CREATE SCHOOL DAY -->
-							<div class="teachStuffContainer">
-							<h2 class="font2em">Jour de formation</h2>
-								<c:set var="canCreateSchoolDay" value="${canCreateSchoolDay}" />
-								<c:if test="${canCreateSchoolDay == true}">
+							<!-- EXPORT TO CSV -->
+							<c:set var="canExportDatasToCSV" value="${canExportDatasToCSV}"/>
+							<c:if test="${canExportDatasToCSV == true}">
+								<div class="teachStuffContainer creator">
+									<h2 class="font2em">Télécharger les absences de la formation sur un fichier Excel</h2>
+									<form method="POST" action="${pageContext.request.contextPath}/headmaster/classroom/exportToCSV/${classroom.getId()}">
+										<label for="exportStartDate" class="font1dot5em">Date de début:</label>
+										<input class="font1dot5em" type="date" id="exportStartDate" name="exportStartDate" min="${selectedClassroom.getStartDate()}" max="${selectedClassroom.getEndDate()}" required>
+										
+										<label for="exportEndDate" class="font1dot5em">Date de fin:</label>
+										<input class="font1dot5em" type="date" id="exportEndDate" name="exportEndDate" min="${selectedClassroom.getStartDate()}" max="${selectedClassroom.getEndDate()}" required>
+										
+										<div>
+											<button type="submit" class="font1dot5em">Télécharger</button>
+										</div>
+									</form>
+								</div>
+							</c:if>
+						
+						
+						
+							<!-- CREATE SCHOOL DAY -->
+							<c:set var="canCreateSchoolDay" value="${canCreateSchoolDay}" />
+							<c:if test="${canCreateSchoolDay == true}">
+								<div class="teachStuffContainer">
+									<h2 class="font2em">Jour de formation</h2>
 									<p class="font1dot5em">Cliquez sur le bouton ci-dessous pour créer une journée de formation et permettre aux apprenants de la formation d'émarger:</p>
 									<a id="createSchoolDayButton" href="${pageContext.request.contextPath}/headmaster/headmasterCreateSchoolDay/${selectedClassroom.getId()}" class="font1dot5em">Créer une journée de formation pour ${selectedClassroom.getName()}</a>
-								</c:if>
-							</div>
+								</div>
+							</c:if>
 						</c:if>
 						
 						

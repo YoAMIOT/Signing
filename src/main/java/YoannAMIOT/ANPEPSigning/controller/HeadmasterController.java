@@ -1,9 +1,16 @@
 package YoannAMIOT.ANPEPSigning.controller;
 
+import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -13,6 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import YoannAMIOT.ANPEPSigning.entities.Classroom;
 import YoannAMIOT.ANPEPSigning.entities.History;
@@ -109,6 +119,7 @@ public class HeadmasterController {
 		List <User> teachers = new ArrayList<User>();
 		List <User> allStudentsNotInThisClassroom = new ArrayList<User>();
 		List <User> studentsOfClassroom = new ArrayList<User>();
+		boolean canExportDatasToCSV = false;
 		
         //Checking if the user is still connected and if not we redirect to the login page
         HttpSession session = request.getSession(true);
@@ -131,9 +142,14 @@ public class HeadmasterController {
 		//Checking if there is any existing student in this classroom
 		boolean studentInThisClassroomExists = classroomRepository.existsStudentInThisClassroom(selectedClassroom.getId());
 		
-        //Getting the actual time and date
+        //Getting the actual date
 		long millis = System.currentTimeMillis();
         java.sql.Date currentDate = new java.sql.Date(millis);
+        
+        //Checking if the actual date is after the start date of the classroom
+        if(currentDate.after(selectedClassroom.getStartDate())) {
+        	canExportDatasToCSV = true;
+        }
 		
 		//If ther's any existing student in this classroom we get all the ids of the students
 		if(studentInThisClassroomExists == true) {
@@ -151,7 +167,7 @@ public class HeadmasterController {
 				}
 			}
 		}
-		
+
 		if((studentsId.size() - counter) >= 1 ){
 			canCreateSchoolDay = true;
 		}
@@ -173,6 +189,7 @@ public class HeadmasterController {
         }
 		
     	//Attributes for the JSP
+        request.setAttribute("canExportDatasToCSV", canExportDatasToCSV);
 		request.setAttribute("selectedClassroom", selectedClassroom);
         request.setAttribute("classroomSelected", classroomSelected);
         request.setAttribute("anyExistingClassroom", anyExistingClassroom);
@@ -305,7 +322,7 @@ public class HeadmasterController {
 					User u = userRepository.findStudentById(s);
 					h.setStudent(u);
 					h.setDate(currentDate);
-					historyRepository.save(h);						
+					historyRepository.save(h);
 				}
 			}
 		}
@@ -414,6 +431,109 @@ public class HeadmasterController {
     	//We add the user to the classroom;
     	classroomRepository.removeUserFromClassroom(idStudent, Integer.parseInt(id));
     	
+    	return "redirect:/headmaster/classroom/" + id;    
+    }
+    
+    
+    
+	//POST OF THE ADD STUDENT TO CLASSROOM//
+    @PostMapping("/headmaster/classroom/exportToCSV/{id}")
+    public String exportToCSV(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	
+    	//Variables
+    	response.setContentType("text/csv");
+    	List<User> students = new ArrayList<User>();
+
+    	//We get the dates from the form
+        java.sql.Date exportStartDate = java.sql.Date.valueOf(request.getParameter("exportStartDate"));
+        java.sql.Date exportEndDate = java.sql.Date.valueOf(request.getParameter("exportEndDate"));
+        
+		//Getting the Classroom
+		Classroom classroom = classroomRepository.findById(Integer.parseInt(id));
+        
+		//We declare a string variable for the file name
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		String startDateSTR = df.format(exportStartDate);
+		String endDateSTR = df.format(exportEndDate);
+    	String fileName = "historique_" + classroom.getName() + "_" + startDateSTR + "_" + endDateSTR + ".csv";
+
+		//Setting the header
+		response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+		
+		//Initialize CSV writers
+		ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+		
+		//We get all the ids of the students
+		List<Integer> studentsId = classroomRepository.findStudentsIdByClassroomId(classroom.getId());
+			
+		//For each student id of the list we get the student it refers to
+		for(Integer s : studentsId) {
+			User student = userRepository.findStudentById(s);
+				
+			//Add the student to the list of students
+			students.add(student);
+		}
+			
+		//For each user of the list we check if he has any existing history
+		for(User u : students) {
+			boolean anyHistoryExists = historyRepository.existsAnyHistoryByStudent(u.getId());
+				
+			//If the student has any existing history we get all it's histories and add 'em all into it's own history list
+			if(anyHistoryExists == true) {
+				List<History> studentHistories = historyRepository.findAllHistoriesBetweenDatesForClassroom(u.getId(), exportStartDate, exportEndDate);
+				u.setHistories(studentHistories);
+			}
+		}
+		
+		//Initialize header Arrays
+		String[] csvStudentHeader = {"Prenom", "Nom"};
+        String[] nameStudentMapping = {"firstName","lastName"};
+        
+        //Initialize a List of dates
+        List<Date> dates = new ArrayList<Date>();
+
+        //If the size of the list is greater than 0
+	    if(students.size() > 0) {
+	    	//For each element of histories we get the date and add it to the date list
+        	for (History h : students.get(0).getHistories()) {
+	        	dates.add(h.getDate());
+	        }
+	    }
+	    
+	    //Initialize two strings for the histories
+	    String[] csvHistoryHeader = new String[(dates.size() * 2)];
+        String[] nameHistoryMapping = new String[(dates.size() * 2) + csvStudentHeader.length];
+	    
+        int i = 0;
+        int j = csvStudentHeader.length;
+        
+        //For each date we add the date to the string
+	    for (Date d : dates) {
+	    	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
+	    	String strDate = dateFormat.format(d);  
+	    	
+	    	csvHistoryHeader[i] = strDate + " Matin";
+	    	nameHistoryMapping[j] = "morningCheck";
+	    	i = i + 1;
+	    	j = j + 1;
+	    	csvHistoryHeader[i] = strDate + " Apres-Midi";
+	    	nameHistoryMapping[j] = "afternoonCheck";
+	    	i = i + 1;
+	    	j = j + 1;
+	    }
+	    
+        //Write out the headers
+	    String[] both = Stream.concat(Arrays.stream(csvStudentHeader), Arrays.stream(csvHistoryHeader)).toArray(String[]::new);
+        csvWriter.writeHeader(both);
+        
+        //For each user we write out it's datas
+        for(User u : students) {
+        	csvWriter.write(u, nameStudentMapping);
+        }
+        
+        //Close the writer
+        csvWriter.close();
+        
     	return "redirect:/headmaster/classroom/" + id;    
     }
 }

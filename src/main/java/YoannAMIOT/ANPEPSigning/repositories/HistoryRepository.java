@@ -43,13 +43,13 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 	
 	
 	
-	//SET MORNING SIGN FOR THE STUDENT
+	//SET MORNING SIGN FOR THE STUDENT//
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE history h SET h.morning_sign = true WHERE h.student_id = ?1 AND h.date = ?2", nativeQuery = true)
 	void updateMorningSignByStudent(int studentId, Date date);
 	
-	//SET AFTERNOON SIGN FOR THE STUDENT
+	//SET AFTERNOON SIGN FOR THE STUDENT//
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE history h SET h.afternoon_sign = true WHERE h.student_id = ?1 AND h.date = ?2", nativeQuery = true)
@@ -57,10 +57,21 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 	
 	
 	
-	//UPDATE STUDENT COUNTERSIGN WITH TEACHER'S CHECK
+	//UPDATE STUDENT COUNTERSIGN WITH TEACHER'S CHECK//
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE history h SET h.morning_check = ?1, h.afternoon_check = ?2 WHERE h.student_id = ?3 AND h.date = ?4", nativeQuery = true)
 	void updateStudentHistoryWithTeachCheck(boolean morningCheck, boolean afternoonCheck, int studentId, Date date);
 	
+	
+	
+	//CHECK IF A STUDENT HAS ANY EXISTING HISTORY//
+	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM history h WHERE h.student_id = ?1", nativeQuery = true)
+	boolean existsAnyHistoryByStudent(int studentId);
+	
+	
+	
+	//GET ALL HISTORIES FROM A STUDENT BETWEEN TWO DATES//
+	@Query(value="SELECT * FROM history h WHERE h.student_id = ?1 AND date BETWEEN ?2 AND ?3 ORDER BY date ASC", nativeQuery = true)
+	List<History> findAllHistoriesBetweenDatesForClassroom(int idStudent, Date startDate, Date endDate);
 }
