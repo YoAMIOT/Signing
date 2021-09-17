@@ -438,7 +438,7 @@ public class HeadmasterController {
     
 	//POST OF THE ADD STUDENT TO CLASSROOM//
     @PostMapping("/headmaster/classroom/exportToCSV/{id}")
-    public String exportToCSV(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void exportToCSV(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
     	//Variables
     	response.setContentType("text/csv");
@@ -487,7 +487,6 @@ public class HeadmasterController {
 		
 		//Initialize header Arrays
 		String[] csvStudentHeader = {"Prenom", "Nom"};
-        String[] nameStudentMapping = {"firstName","lastName"};
         
         //Initialize a List of dates
         List<Date> dates = new ArrayList<Date>();
@@ -502,24 +501,18 @@ public class HeadmasterController {
 	    
 	    //Initialize two strings for the histories
 	    String[] csvHistoryHeader = new String[(dates.size() * 2)];
-        String[] nameHistoryMapping = new String[(dates.size() * 2) + csvStudentHeader.length];
 	    
-        int i = 0;
-        int j = csvStudentHeader.length;
         
         //For each date we add the date to the string
+	    int i = 0;
 	    for (Date d : dates) {
 	    	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
 	    	String strDate = dateFormat.format(d);  
 	    	
 	    	csvHistoryHeader[i] = strDate + " Matin";
-	    	nameHistoryMapping[j] = "morningCheck";
 	    	i = i + 1;
-	    	j = j + 1;
 	    	csvHistoryHeader[i] = strDate + " Apres-Midi";
-	    	nameHistoryMapping[j] = "afternoonCheck";
 	    	i = i + 1;
-	    	j = j + 1;
 	    }
 	    
         //Write out the headers
@@ -528,12 +521,34 @@ public class HeadmasterController {
         
         //For each user we write out it's datas
         for(User u : students) {
-        	csvWriter.write(u, nameStudentMapping);
+        	String[] studentPresences = new String[(u.getHistories().size() * 2) + csvStudentHeader.length];
+        	int j = csvStudentHeader.length;
+        	studentPresences[0] = u.getFirstName();
+        	studentPresences[1] = u.getLastName();
+        	
+        	//For each history of the user
+        	for(History h : u.getHistories()) {
+        		if(h.isMorningCheck() == true) {
+        			studentPresences[j] = "Present";
+        			j = j + 1;
+        		} else if(h.isMorningCheck() == false) {
+        			studentPresences[j] = "Absent";
+        			j = j + 1;
+        		}
+        		
+        		if(h.isAfternoonCheck() == true) {
+        			studentPresences[j] = "Present";
+        			j = j + 1;
+        		} else if(h.isAfternoonCheck() == false) {
+        			studentPresences[j] = "Absent";
+        			j = j + 1;
+        		}
+        	}
+        	
+        	csvWriter.writeHeader(studentPresences);
         }
-        
+
         //Close the writer
-        csvWriter.close();
-        
-    	return "redirect:/headmaster/classroom/" + id;    
+        csvWriter.close(); 
     }
 }
