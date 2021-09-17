@@ -71,9 +71,8 @@
 						<c:set var="studentInThisClassroomExists"
 							value="${studentInThisClassroomExists}" />
 						<c:set var="alreadyCountersigned" value="${alreadyCountersigned}"></c:set>
-						<c:if
-							test="${countersignTest == true && studentInThisClassroomExists == true}">
-							<c:if test="${alreadyCountersigned == true}">
+						<c:if test="${countersignTest == true && studentInThisClassroomExists == true}">
+							<c:if test="${alreadyCountersigned == true && canCreateSchoolDay == false}">
 								<div class="teachStuffContainer">
 									<h2 class="font1dot5em">CONTRESEING</h2>
 									<div id="counterSignContainer">

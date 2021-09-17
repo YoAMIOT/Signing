@@ -66,10 +66,14 @@
 }
 
 body {
-	background-color: rgb(147, 219, 105);
+	background-color: rgb(29, 157, 222);
 	margin: 0;
 	min-width: 250;
 	max-width: 5000px;
+}
+
+button:hover{
+	cursor: pointer;
 }
 
 .font0dot8em {
@@ -86,7 +90,7 @@ body {
 
 /*LOGIN*/
 #loginFormContainer {
-	background-color: rgba(88, 143, 55, 0.7);
+	background-color: rgba(40, 98, 224, 0.7);
 	border-radius: 15px;
 	height: 80vh;
 	margin: 10vh 0 10vh 0;
@@ -107,12 +111,18 @@ body {
 
 #loginFormContainer button {
 	margin-top: 5vh;
-	border: 3px solid rgb(88, 143, 55);
-	background-color: rgb(147, 219, 105);
+	border: 3px solid rgb(40, 98, 224);
+	background-color: rgb(29, 157, 222);
 	border-radius: 3px;
 	padding: 15px 32px;
 	text-align: center;
 	text-decoration: none;
+}
+
+#loginFormContainer button:hover{
+	border: 3px solid orange;
+	color: orange;
+	cursor: pointer;
 }
 
 /*STUDENT*/
@@ -122,7 +132,7 @@ body {
 }
 
 #signingTitle {
-	border-bottom: 1px solid rgb(88, 143, 55);
+	border-bottom: 1px solid rgb(40, 98, 224);
 }
 
 .signingCheckbox {
@@ -132,7 +142,7 @@ body {
 
 /*History*/
 #studentHistory {
-	background-color: rgb(88, 143, 55);
+	background-color: rgb(40, 98, 224);
 	height: 100%;
 	text-align: center;
 	color: white;
@@ -146,7 +156,7 @@ body {
 	margin-top: 5vh;
 	transform: translateY(-50%);
 	color: white;
-	border: 2px solid rgb(147, 219, 105);
+	border: 2px solid rgb(29, 157, 222);
 	border-radius: 3px;
 	font-size: 1.2em;
 }
@@ -164,7 +174,7 @@ body {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: rgb(147, 219, 105);
+	background-color: rgb(29, 157, 222);
 	transition: all .4s;
 	z-index: -1;
 	overflow: scroll;
@@ -194,7 +204,7 @@ body {
 
 #policyContainer h2 {
 	text-align: center;
-	border-bottom: 1px solid rgb(88, 143, 55);
+	border-bottom: 1px solid rgb(40, 98, 224);
 }
 
 .policyParaContainer {
@@ -223,8 +233,8 @@ body {
 }
 
 .classroomSelector {
-	border-top: 2px solid rgb(147, 219, 105);
-	border-bottom: 2px solid rgb(147, 219, 105);
+	border-top: 2px solid rgb(29, 157, 222);
+	border-bottom: 2px solid rgb(29, 157, 222);
 	text-decoration: none;
 	color: white;
 	width: 100%;
@@ -243,7 +253,7 @@ body {
 }
 
 #mainClassroom h1 {
-	border-bottom: 1px solid rgb(88, 143, 55);
+	border-bottom: 1px solid rgb(40, 98, 224);
 }
 
 #createSchoolDayButton {
@@ -260,7 +270,7 @@ body {
 }
 
 .teachStuffContainer {
-	border-bottom: 1px solid rgb(88, 143, 55);
+	border-bottom: 1px solid rgb(40, 98, 224);
 	padding-bottom: 2vh;
 	background-color: rgba(255,255,255,0.5);
 	border-radius: 20px;
@@ -281,7 +291,7 @@ body {
 }
 
 #tableContainer td {
-    border: 1px solid rgb(88, 143, 55);
+    border: 1px solid rgb(40, 98, 224);
 }
 
 #studentsHistories{
@@ -321,7 +331,7 @@ body {
 }
 
 .borderGreen{
-	border: 1px solid rgb(88, 143, 55);
+	border: 1px solid rgb(40, 98, 224);
 }
 
 /*HEADMASTER*/
@@ -358,7 +368,7 @@ body {
 }
 
 .creator{
-	border-bottom: 1px solid rgb(88, 143, 55);
+	border-bottom: 1px solid rgb(40, 98, 224);
 }
 
 .creator label{
@@ -390,11 +400,11 @@ body {
 	min-width: calc(50%-10px);
 	max-width: 100%;
 	margin: 10px;
-	border-bottom: 2px solid rgb(88, 143, 55);
+	border-bottom: 2px solid rgb(40, 98, 224);
 	text-decoration: none;
 	border-radius: 10px;
 	background-color: rgba(255,255,255,0.7);
-	color: rgb(88, 143, 55)
+	color: rgb(40, 98, 224)
 }
 
 .userFromList:hover{
@@ -405,7 +415,7 @@ body {
 /*FOOTER*/
 #footer {
 	height: 10vh;
-	background-color: rgb(88, 143, 55);
+	background-color: rgb(40, 98, 224);
 	position: fixed;
 	bottom: 0;
 	text-align: center;
