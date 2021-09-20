@@ -5,9 +5,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -484,9 +482,6 @@ public class HeadmasterController {
 				u.setHistories(studentHistories);
 			}
 		}
-		
-		//Initialize header Arrays
-		String[] csvStudentHeader = {"Prenom", "Nom"};
         
         //Initialize a List of dates
         List<Date> dates = new ArrayList<Date>();
@@ -500,51 +495,62 @@ public class HeadmasterController {
 	    }
 	    
 	    //Initialize two strings for the histories
-	    String[] csvHistoryHeader = new String[(dates.size() * 2)];
+	    String[] csvHeader = new String[(dates.size() * 3) + 2];
 	    
         
         //For each date we add the date to the string
-	    int i = 0;
+	    int i = 2;
+	    csvHeader[0] = "Nom et prenom";
+	    csvHeader[1] = "|||";
 	    for (Date d : dates) {
 	    	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
 	    	String strDate = dateFormat.format(d);  
 	    	
-	    	csvHistoryHeader[i] = strDate + " Matin";
+	    	csvHeader[i] = strDate + " M";
 	    	i = i + 1;
-	    	csvHistoryHeader[i] = strDate + " Apres-Midi";
+	    	csvHeader[i] = strDate + " A-M";
+	    	i = i + 1;
+	    	csvHeader[i] = "|||";
 	    	i = i + 1;
 	    }
 	    
-        //Write out the headers
-	    String[] both = Stream.concat(Arrays.stream(csvStudentHeader), Arrays.stream(csvHistoryHeader)).toArray(String[]::new);
-        csvWriter.writeHeader(both);
+        //Write out the header
+        csvWriter.writeHeader(csvHeader);
         
         //For each user we write out it's datas
         for(User u : students) {
-        	String[] studentPresences = new String[(u.getHistories().size() * 2) + csvStudentHeader.length];
-        	int j = csvStudentHeader.length;
-        	studentPresences[0] = u.getFirstName();
-        	studentPresences[1] = u.getLastName();
+        	String[] studentPresences = new String[(u.getHistories().size() * 3) + 2];
+        	int j = 2;
+        	studentPresences[0] = u.getLastName() + " " + u.getFirstName();
+        	studentPresences[1] = "|||";
         	
         	//For each history of the user
         	for(History h : u.getHistories()) {
+        		//If the student was here in the morning
         		if(h.isMorningCheck() == true) {
-        			studentPresences[j] = "Present";
+        			studentPresences[j] = "Ok";
         			j = j + 1;
+        		//If the student wasn't here in the morning
         		} else if(h.isMorningCheck() == false) {
-        			studentPresences[j] = "Absent";
+        			studentPresences[j] = "ABSENT!";
         			j = j + 1;
         		}
         		
+        		//If the student was here in the afternoon
         		if(h.isAfternoonCheck() == true) {
-        			studentPresences[j] = "Present";
+        			studentPresences[j] = "Ok";
         			j = j + 1;
+        		//If the student wasn't here in the afternoon
         		} else if(h.isAfternoonCheck() == false) {
-        			studentPresences[j] = "Absent";
+        			studentPresences[j] = "ABSENT!";
         			j = j + 1;
         		}
+        		
+        		studentPresences[j] = "|||";
+        		j = j + 1;
         	}
         	
+        	//Write the presences
         	csvWriter.writeHeader(studentPresences);
         }
 
