@@ -172,10 +172,12 @@
 	
 			<!-- CLASSROOMS LIST -->
 			<div id="studentHistory" class="sm-col12 md-col3 lg-col3">
+				<h2 class="font2em">Menu de navigation:</h2>
+				<a href="${pageContext.request.contextPath}" class="font2em navSelector">Déconnexion</a>
+				
 				<h2>Liste de vos formations</h2>
-	
-				<c:set var="classroomWithTeachExists"
-					value="${classroomWithTeachExists}" />
+				
+				<c:set var="classroomWithTeachExists" value="${classroomWithTeachExists}" />
 				<c:if test="${classroomWithTeachExists == true}">
 					<c:forEach var="c" items="${classrooms}">
 						<a href="${pageContext.request.contextPath}/teacherClassroom/${c.getId()}" class="font2em classroomSelector">${c.getName()}</a>

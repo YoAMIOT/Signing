@@ -210,14 +210,17 @@
 	
 			<!-- CLASSROOMS LIST -->
 			<div id="studentHistory" class="sm-col12 md-col3 lg-col3">
-				<h2>Liste de toutes les formation</h2>
+				<h2 class="font2em">Menu de navigation:</h2>
 				
 				<a href="${pageContext.request.contextPath}/headmaster/" class="font2em navSelector">Retour au menu principal</a>
 				
 				<c:if test="${classroomSelected == true}">
 					<a href="${pageContext.request.contextPath}/headmaster/classrooms" class="font2em navSelector">Retour au menu des formations</a>
 				</c:if>
+
+				<a href="${pageContext.request.contextPath}" class="font2em navSelector">Déconnexion</a>
 				
+				<h2 class="font2em">Liste de toutes les formation</h2>
 				<c:set var="anyExistingClassroom" value="${anyExistingClassroom}" />
 				<c:if test="${anyExistingClassroom == true}">
 					<c:forEach var="c" items="${classrooms}">

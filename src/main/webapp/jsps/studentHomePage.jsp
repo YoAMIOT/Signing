@@ -100,7 +100,7 @@
 					
 					
 					
-					<!--ID THERE'S NO HISTORY FOR TODAY-->
+					<!--IF THERE'S NO HISTORY FOR TODAY-->
 					<c:if test = "${todaysHistoryExists == false}">
 						<div>
 							<p class="font2em">Aujourd'hui vous êtes en vacance! Ce n'est pas un jour de formation!</p>
@@ -113,8 +113,11 @@
 			
 			<!-- STUDENT HISTORY -->
 			<div id="studentHistory" class="sm-col12 md-col3 lg-col3">
-				<h2 class="font2em">Vos absences:</h2>
+				<h2 class="font2em">Menu de navigation:</h2>
+				<a href="${pageContext.request.contextPath}" class="font2em navSelector">Déconnexion</a>
 				
+				<h2 class="font2em">Vos absences:</h2>
+
 				<div>
 					<c:set var="absenceHistoryExists" value="${absenceHistoryExists}"/>
 					<c:if test="${absenceHistoryExists == true}">

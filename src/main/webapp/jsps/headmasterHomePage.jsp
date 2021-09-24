@@ -23,9 +23,10 @@
 			
 			<!-- NAVBAR -->
 			<div id="studentHistory" class="sm-col12 md-col3 lg-col3">
-				<h2>Menu de navigation</h2>
+				<h2 class="font2em">Menu de navigation:</h2>
 				<a href="${pageContext.request.contextPath}/headmaster/classrooms" class="font2em navSelector">Formations</a>
 				<a href="${pageContext.request.contextPath}/headmaster/users" class="font2em navSelector">Utilisateurs</a>
+				<a href="${pageContext.request.contextPath}" class="font2em navSelector">Déconnexion</a>
 			</div>
 		</div>
 	</body>

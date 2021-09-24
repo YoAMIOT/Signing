@@ -197,11 +197,12 @@
 	
 			<!-- CLASSROOMS LIST -->
 			<div id="studentHistory" class="sm-col12 md-col3 lg-col3">
-				<a href="${pageContext.request.contextPath}/headmaster/" class="font2em navSelector">Retour au menu principal</a>
-				
+				<h2 class="font2em">Menu de navigation:</h2>
+				<a href="${pageContext.request.contextPath}/headmaster/" class="font2em navSelector">Retour au menu principal</a>				
 				<c:if test="${userSelected == true}">
 					<a href="${pageContext.request.contextPath}/headmaster/users" class="font2em navSelector">Retour au menu des utilisateurs</a>
 				</c:if>
+				<a href="${pageContext.request.contextPath}" class="font2em navSelector">Déconnexion</a>
 			</div>
 		</div>
 	</body>

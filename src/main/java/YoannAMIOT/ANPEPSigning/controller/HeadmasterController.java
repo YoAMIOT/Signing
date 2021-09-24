@@ -282,8 +282,6 @@ public class HeadmasterController {
 			lastOfResponsability = userRepository.isLastOfItsResponsability(selectedUser.getResponsability());
 		}
 		
-		System.out.println(lastOfResponsability);
-		
     	//Attributes for the JSP
 		request.setAttribute("lastOfResponsability", lastOfResponsability);
         request.setAttribute("userSelected", userSelected);
