@@ -43,4 +43,18 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	@Modifying
 	@Query(value = "UPDATE user u SET u.email = ?1, u.first_name = ?2, u.last_name = ?3, u.password = ?4, u.responsability = ?5 WHERE u.id = ?6", nativeQuery = true)
 	void updateUser(String email, String firstname, String lastname, String password, int responsability, int id);
+	
+	
+	
+	//REMOVE USER//
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM user WHERE id = ?1", nativeQuery = true)
+	void removeUserById(int idUser);
+	
+	
+	
+	//CHECK IF A USER IS THE LAST OF IT'S RESPONSABILITY//
+	@Query(value = "SELECT IF (COUNT(*) > 1, 'false', 'true') FROM user u WHERE u.responsability = ?1", nativeQuery = true)
+	boolean isLastOfItsResponsability(int responsability);
 }

@@ -112,7 +112,7 @@
 								<div class="teachStuffContainer">
 									<h2 class="font2em">Jour de formation</h2>
 									<p class="font1dot5em">Cliquez sur le bouton ci-dessous pour créer une journée de formation et permettre aux apprenants de la formation d'émarger:</p>
-									<a id="createSchoolDayButton" href="${pageContext.request.contextPath}/headmaster/headmasterCreateSchoolDay/${selectedClassroom.getId()}" class="font1dot5em">Créer une journée de formation pour ${selectedClassroom.getName()}</a>
+									<a class="createSchoolDayButton font1dot5em" href="${pageContext.request.contextPath}/headmaster/headmasterCreateSchoolDay/${selectedClassroom.getId()}">Créer une journée de formation pour ${selectedClassroom.getName()}</a>
 								</div>
 							</c:if>
 						</c:if>
@@ -187,6 +187,20 @@
 									
 								<button type="submit" class="font1dot5em">Mettre à jour la formation</button>
 							</form:form>
+						</div>
+						
+						
+						
+						<!-- DELETE CLASSROOM -->
+						<div class="teachStuffContainer creator">
+							<h2 class="font2em">Supprimer la formation</h2>
+							<a class="createSchoolDayButton font2em" href="#del">Supprimer la formation ${selectedClassroom.getName()}</a>
+							
+							<div id="del" class="font2em">
+								<p>Êtes vous sûr de vouloir supprimer la formation ${selectedClassroom.getName()}? Cette action est irreversible.</p>
+								<a href="" class="navSelector">NON</a>
+								<a href="${pageContext.request.contextPath}/headmaster/classroom/delClass/${selectedClassroom.getId()}" class="navSelector">OUI</a>
+							</div>
 						</div>
 					</c:if>
 				</div>

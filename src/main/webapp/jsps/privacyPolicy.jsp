@@ -130,6 +130,5 @@
 
 <!-- FOOTER -->
 <footer id="footer" class="sm-col12 md-col9 lg-col9">
-	<a href="#privacy" id="privacyAndLegalLink">Politique de
-		confidentialité et Mentions légales</a>
+	<a href="#privacy" id="privacyAndLegalLink">Politique de confidentialité et Mentions légales</a>
 </footer>

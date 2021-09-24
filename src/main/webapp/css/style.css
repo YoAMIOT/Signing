@@ -256,14 +256,14 @@ button:hover{
 	border-bottom: 1px solid rgb(40, 98, 224);
 }
 
-#createSchoolDayButton {
+.createSchoolDayButton {
 	text-decoration: none;
 	border: 2px solid red;
 	border-radius: 3px;
 	color: red;
 }
 
-#createSchoolDayButton:hover {
+.createSchoolDayButton:hover {
 	border: 2px solid orange;
 	border-radius: 3px;
 	color: orange;
@@ -411,6 +411,27 @@ button:hover{
 	border-bottom: 2px solid orange;
 	color: orange;
 }
+
+#del {
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgb(29, 157, 222);
+	transition: all .4s;
+	z-index: -1;
+	overflow: scroll;
+}
+
+#del:target {
+	visibility: visible;
+	opacity: 1;
+	z-index: 1;
+}
+
 
 /*FOOTER*/
 #footer {

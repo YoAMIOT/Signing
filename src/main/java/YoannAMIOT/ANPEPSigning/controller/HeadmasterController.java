@@ -260,6 +260,7 @@ public class HeadmasterController {
 		
 		//Attributes variables for the JSP
 		boolean userSelected = true;
+		boolean lastOfResponsability = false;
  		
         //Checking if the user is still connected and if not we redirect to the login page
         HttpSession session = request.getSession(true);
@@ -275,9 +276,16 @@ public class HeadmasterController {
 		List<History> absentHistories = historyRepository.findByStudentsNotSigned(Integer.parseInt(id));
 		//Set the absent History of the student
 		selectedUser.setAbsentHistories(absentHistories);
-
+		
+		//If the user is a teacher or a headmaster we check if it's the last one in this responsability
+		if(selectedUser.getResponsability() == 2 || selectedUser.getResponsability() == 1) {
+			lastOfResponsability = userRepository.isLastOfItsResponsability(selectedUser.getResponsability());
+		}
+		
+		System.out.println(lastOfResponsability);
 		
     	//Attributes for the JSP
+		request.setAttribute("lastOfResponsability", lastOfResponsability);
         request.setAttribute("userSelected", userSelected);
         request.setAttribute("selectedUser", selectedUser);
 		
@@ -326,6 +334,113 @@ public class HeadmasterController {
 		}
 
 		return "redirect:/headmaster/classroom/" + id;
+	}
+	
+	
+	
+	//GET OF THE HEADMASTER DELETE CLASSROOM//
+	@GetMapping("/headmaster/classroom/delClass/{id}")
+	public String delClass(@PathVariable String id) {
+		//Getting the Classroom
+		Classroom classroom = classroomRepository.findById(Integer.parseInt(id));
+		
+		//Checking if there is any existing student in this classroom
+		boolean studentInThisClassroomExists = classroomRepository.existsStudentInThisClassroom(classroom.getId());
+
+		//If ther's any existing student in this classroom we get all the ids of the students
+		if(studentInThisClassroomExists == true) {
+			List<Integer> studentsId = classroomRepository.findStudentsIdByClassroomId(classroom.getId());
+			
+			//For each students id in the list delete it's link with the classroom
+			for (Integer s : studentsId) {
+				classroomRepository.removeUserFromClassroom(s, classroom.getId());
+			}
+		}
+		
+		classroomRepository.removeClassroomById(classroom.getId());
+		
+		return "redirect:/headmaster/classrooms";
+	}
+	
+	
+	
+	//GET OF THE HEADMASTER DELETE STUDENT//
+	@GetMapping("/headmaster/user/delStudent/{id}")
+	public String delStudent(@PathVariable String id) {
+		
+		//Get the student
+		User user = userRepository.findStudentById(Integer.parseInt(id));
+		
+		//Check if the student has any history
+		boolean historyExists = historyRepository.existsAnyHistoryByStudent(user.getId());
+		
+		//If the student has any history we delete all it's histories
+		if(historyExists == true) {
+			historyRepository.removeHitsoriesByStudentId(user.getId());
+		}
+		
+		//Check if the student is in any classroom
+		boolean isInAnyClassroom = classroomRepository.existsStudentInAnyClassroom(user.getId());
+		
+		//If the student is in any classroom we delete all it's link with the classrooms
+		if(isInAnyClassroom == true) {
+			classroomRepository.removeLinkByStudentId(user.getId());
+		}
+		
+		userRepository.removeUserById(user.getId());
+		
+		return "redirect:/headmaster/users";
+	}
+	
+	
+	
+	//GET OF THE HEADMASTER DELETE TEACHER//
+	@GetMapping("/headmaster/user/delTeacher/{id}")
+	public String delTeacher(@PathVariable String id) {
+		
+		//Get the Teacher
+		User user = userRepository.findStudentById(Integer.parseInt(id));
+		
+		//Check if the Teacher is the main teacher of any classroom
+		boolean isMainTeachOfAnyClassroom = classroomRepository.existsAsTheMainTeacherOfAnyClassroom(user.getId());
+		
+		//If the Teacher is the main teacher of any classroom we get the classrooms
+		if(isMainTeachOfAnyClassroom == true) {
+			List<Classroom> classrooms = classroomRepository.getAllClassroomWhereTeachIs(user.getId());
+			
+			List<User> teachers = userRepository.findAllUserByResponsability(1);
+			
+			int newId = 0;
+			
+			for(User u : teachers) {
+				if(u.getId() != user.getId()) {
+					newId = u.getId();
+				}
+			}
+			
+			//For each classrooms we replace the teacher id
+			for(Classroom c : classrooms) {
+				classroomRepository.replaceTeachId(newId, c.getId());
+			}
+		}
+		
+		userRepository.removeUserById(user.getId());
+		
+		return "redirect:/headmaster/users";
+	}
+	
+	
+	
+	//GET OF THE HEADMASTER DELETE HEADMASTER//
+	@GetMapping("/headmaster/user/delHeadmaster/{id}")
+	public String delHeadmaster(@PathVariable String id) {
+		
+		//Get the Headmaster
+		User user = userRepository.findStudentById(Integer.parseInt(id));
+
+		userRepository.removeUserById(user.getId());
+		
+		return "redirect:/headmaster/users";
 	}
 	
 	

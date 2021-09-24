@@ -165,6 +165,30 @@
 								<button type="submit" class="font1dot5em">Modifier l'utilisateur</button>
 							</form:form>
 						</div>
+						
+						
+						<!-- DELETE USER -->
+						<c:set var="lastOfResponsability" value="${lastOfResponsability}"/>
+						<c:if test="${lastOfResponsability == false}">
+							<div class="teachStuffContainer creator">
+								<h2 class="font2em">Supprimer l'utilisateur</h2>
+								<a class="createSchoolDayButton font2em" href="#del">Supprimer ${selectedUser.getLastName()} ${selectedUser.getFirstName()}</a>
+								
+								<div id="del" class="font2em">
+									<p>Êtes vous sûr de vouloir supprimer ${selectedUser.getLastName()} ${selectedUser.getFirstName()}? Cette action est irréversible et engendre la suppression de tout les historique liés à cet utilisateur.</p>
+									<a href="" class="navSelector">NON</a>
+									<c:if test="${selectedUser.getResponsability() == 0}">
+										<a href="${pageContext.request.contextPath}/headmaster/user/delStudent/${selectedUser.getId()}" class="navSelector">OUI</a>
+									</c:if>
+									<c:if test="${selectedUser.getResponsability() == 1}">
+										<a href="${pageContext.request.contextPath}/headmaster/user/delTeacher/${selectedUser.getId()}" class="navSelector">OUI</a>
+									</c:if>
+									<c:if test="${selectedUser.getResponsability() == 2}">
+										<a href="${pageContext.request.contextPath}/headmaster/user/delHeadmaster/${selectedUser.getId()}" class="navSelector">OUI</a>
+									</c:if>
+								</div>
+							</div>
+						</c:if>
 					</c:if>					
 				</div>
 			</div>

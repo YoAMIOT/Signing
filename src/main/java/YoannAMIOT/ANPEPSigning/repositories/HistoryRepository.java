@@ -74,4 +74,12 @@ public interface HistoryRepository extends JpaRepository<History, Integer>{
 	//GET ALL HISTORIES FROM A STUDENT BETWEEN TWO DATES//
 	@Query(value="SELECT * FROM history h WHERE h.student_id = ?1 AND date BETWEEN ?2 AND ?3 ORDER BY date ASC", nativeQuery = true)
 	List<History> findAllHistoriesBetweenDatesForClassroom(int idStudent, Date startDate, Date endDate);
+	
+	
+	
+	//REMOVE HISTORIES FROM A STUDENT//
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM history WHERE student_id = ?1", nativeQuery = true)
+	void removeHitsoriesByStudentId(int idStudent);
 }

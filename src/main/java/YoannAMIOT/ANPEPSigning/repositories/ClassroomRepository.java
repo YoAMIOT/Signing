@@ -62,4 +62,44 @@ public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
 	@Modifying
 	@Query(value = "DELETE FROM classrooms_students WHERE id_user = ?1 AND id_classroom = ?2", nativeQuery = true)
 	void removeUserFromClassroom(int idStudent, int idClassroom);
+	
+	
+	
+	//REMOVE CLASSROOM//
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM classroom WHERE id = ?1", nativeQuery = true)
+	void removeClassroomById(int idClassroom);
+	
+	
+	
+	//REMOVE CLASSROOM//
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE FROM classrooms_students WHERE id_user = ?1", nativeQuery = true)
+	void removeLinkByStudentId(int idStudent);
+	
+	
+	
+	//CHECK IF A STUDENT IS IN ANY CLASSROOM//
+	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM classrooms_students c WHERE c.id_user = ?1", nativeQuery = true)
+	boolean existsStudentInAnyClassroom(int studentId);
+	
+	
+	
+	//CHECK IF A TEACHER IS THE MAIN TEACHER OF ANY CLASSROOM//
+	@Query(value = "SELECT IF (COUNT(*) > 0, 'true', 'false') FROM classroom c WHERE c.teacher_id = ?1", nativeQuery = true)
+	boolean existsAsTheMainTeacherOfAnyClassroom(int teacherId);
+	
+	//GET ALL THE CLASSROOM BY IT'S TEACHER//
+	@Query(value = "SELECT * FROM classroom c WHERE c.teacher_id = ?1", nativeQuery = true)
+	List<Classroom> getAllClassroomWhereTeachIs(int teacherId);
+	
+	
+	
+	//REPLACE THE TEACH ID//
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE classroom c SET c.teacher_id = ?1 WHERE id = ?2", nativeQuery = true)
+	void replaceTeachId(int newTeach ,int classroomId);
 }
