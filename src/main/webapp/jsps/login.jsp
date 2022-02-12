@@ -29,10 +29,31 @@
 					</div>
 	
 					<div>
-						<button type="submit" class="font1dot5em">Se connecter</button>
+						<button type="submit" class="font1dot5em" id="submitLoginFormButton" disabled="true">Se connecter</button>
 					</div>
 				</div>
 			</form:form>
+			
+			
+			
+			<script>
+				let regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+				const SUBMIT_BUTTON = document.getElementById("submitLoginFormButton");
+
+				/* Event Listener */
+				document.getElementById("email").addEventListener("input", checkEmail);
+
+				/* Function to Check the mail */
+				function checkEmail(){
+				    if(this.value != ""){
+				    	if(regexEmail.test(this.value)){
+				    		SUBMIT_BUTTON.disabled = false;
+					    }else{
+					    	SUBMIT_BUTTON.disabled = true;
+					    }
+				    }
+				}
+			</script>
 	    </div>
 	</body>
 </html>

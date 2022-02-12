@@ -1,10 +1,10 @@
-package YoannAMIOT.ANPEPSigning;
+package YoannAMIOT.Signing;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AnpepSigningApplicationTests {
+class SigningApplicationTests {
 
 	@Test
 	void contextLoads() {

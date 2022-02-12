@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.controller;
+package YoannAMIOT.Signing.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -22,12 +22,12 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import YoannAMIOT.ANPEPSigning.entities.Classroom;
-import YoannAMIOT.ANPEPSigning.entities.History;
-import YoannAMIOT.ANPEPSigning.entities.User;
-import YoannAMIOT.ANPEPSigning.repositories.ClassroomRepository;
-import YoannAMIOT.ANPEPSigning.repositories.HistoryRepository;
-import YoannAMIOT.ANPEPSigning.repositories.UserRepository;
+import YoannAMIOT.Signing.entities.Classroom;
+import YoannAMIOT.Signing.entities.History;
+import YoannAMIOT.Signing.entities.User;
+import YoannAMIOT.Signing.repositories.ClassroomRepository;
+import YoannAMIOT.Signing.repositories.HistoryRepository;
+import YoannAMIOT.Signing.repositories.UserRepository;
 
 @Controller
 public class HeadmasterController {
@@ -220,7 +220,7 @@ public class HeadmasterController {
 		User u = (User) session.getAttribute("user");
 		if(u == null || u.getResponsability() != 2) {
 			return "redirect:/login";
-		}
+		};
         
         //Get of all the headmasters
 		allHeadmasters = userRepository.findAllUserByResponsability(2);
@@ -389,7 +389,7 @@ public class HeadmasterController {
 		
 		return "redirect:/headmaster/users";
 	}
-	
+
 	
 	
 	//GET OF THE HEADMASTER DELETE TEACHER//

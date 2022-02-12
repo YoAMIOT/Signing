@@ -34,10 +34,10 @@
 				</c:if>
 	
 				<div id="mainClassroom"
-					<c:if test="${createSchoolDayTest == true && countersignTest == true}">style="height: 90vh;"</c:if>
-					<c:if test="${createSchoolDayTest == false && countersignTest == false}">style="height: 80vh;"</c:if>
-					<c:if test="${createSchoolDayTest == true && countersignTest == false}">style="height: 85vh;"</c:if>
-					<c:if test="${createSchoolDayTest == false && countersignTest == true}">style="height: 85vh;"</c:if>>
+					<c:if test="${createSchoolDayTest == true && countersignTest == true}">style="height: 100vh;"</c:if>
+					<c:if test="${createSchoolDayTest == false && countersignTest == false}">style="height: 90vh;"</c:if>
+					<c:if test="${createSchoolDayTest == true && countersignTest == false}">style="height: 95vh;"</c:if>
+					<c:if test="${createSchoolDayTest == false && countersignTest == true}">style="height: 95vh;"</c:if>>
 					<h1>Formation ${classroom.getName()}</h1>
 					<div>
 	
@@ -184,10 +184,6 @@
 					</c:forEach>
 				</c:if>
 			</div>
-	
-	
-	
-			<%@ include file="privacyPolicy.jsp"%>
 		</div>
 	</body>
 </html>

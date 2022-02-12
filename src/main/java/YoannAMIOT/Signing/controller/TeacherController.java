@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.controller;
+package YoannAMIOT.Signing.controller;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import YoannAMIOT.ANPEPSigning.entities.Classroom;
-import YoannAMIOT.ANPEPSigning.entities.History;
-import YoannAMIOT.ANPEPSigning.entities.User;
-import YoannAMIOT.ANPEPSigning.repositories.ClassroomRepository;
-import YoannAMIOT.ANPEPSigning.repositories.HistoryRepository;
-import YoannAMIOT.ANPEPSigning.repositories.UserRepository;
+import YoannAMIOT.Signing.entities.Classroom;
+import YoannAMIOT.Signing.entities.History;
+import YoannAMIOT.Signing.entities.User;
+import YoannAMIOT.Signing.repositories.ClassroomRepository;
+import YoannAMIOT.Signing.repositories.HistoryRepository;
+import YoannAMIOT.Signing.repositories.UserRepository;
 
 @Controller
 public class TeacherController {

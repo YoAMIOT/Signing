@@ -133,10 +133,6 @@
 					</c:if>
 				</div>
 			</div>
-			
-
-			
-			<%@ include file="privacyPolicy.jsp"%>
 		</div>
 	</body>
 </html>

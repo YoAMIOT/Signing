@@ -39,10 +39,6 @@
 					</c:forEach>
 				</c:if>
 			</div>
-			
-			
-			
-			<%@ include file="privacyPolicy.jsp"%>
 		</div>
 	</body>
 </html>

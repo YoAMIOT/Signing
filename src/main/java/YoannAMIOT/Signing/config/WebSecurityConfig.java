@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.config;
+package YoannAMIOT.Signing.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import YoannAMIOT.ANPEPSigning.Authentication.AppAuthProvider;
-import YoannAMIOT.ANPEPSigning.Authentication.UserService;
+import YoannAMIOT.Signing.Authentication.AppAuthProvider;
+import YoannAMIOT.Signing.Authentication.UserService;
 
 
 @Configuration
@@ -31,8 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.csrf().disable()
 			.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/", "/login", "/studentHome", "/addUser", "/loginDispatcher", "/fail", "/teacherHome", "/teacherClassroom/**", "/createSchoolDay/**, /headmaster/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/login", "/addUser","/morningSigning","/afternoonSigning", "/countersign/*").permitAll()
+				.antMatchers(HttpMethod.GET, "/", "/login", "/studentHome", "/addUser", "/loginDispatcher", "/fail", "/teacherHome", "/teacherClassroom/**", "/createSchoolDay/**", "/headmaster/**", "/fake").permitAll()
+				.antMatchers(HttpMethod.POST, "/login", "/addUser","/morningSigning","/afternoonSigning", "/countersign/*", "/fake").permitAll()
 				.antMatchers("/css/**").permitAll()
 				.anyRequest().authenticated()
 				.and()

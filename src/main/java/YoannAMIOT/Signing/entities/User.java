@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.entities;
+package YoannAMIOT.Signing.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class User implements Serializable, UserDetails{
 	}
 	
 
-	public User(int id, String email, String firstName, String lastName, String password, int responsability, int idClass, List<YoannAMIOT.ANPEPSigning.entities.Classroom> classrooms, List<History> histories, List<YoannAMIOT.ANPEPSigning.entities.Classroom> classroom) {
+	public User(int id, String email, String firstName, String lastName, String password, int responsability, int idClass, List<YoannAMIOT.Signing.entities.Classroom> classrooms, List<History> histories, List<YoannAMIOT.Signing.entities.Classroom> classroom) {
 		super();
 		this.id = id;
 		this.email = email;

@@ -149,77 +149,6 @@ button:hover{
 	margin-bottom: 10vh;
 }
 
-/*Privacy*/
-#privacyAndLegalLink {
-	display: inline-block;
-	text-decoration: none;
-	margin-top: 5vh;
-	transform: translateY(-50%);
-	color: white;
-	border: 2px solid rgb(29, 157, 222);
-	border-radius: 3px;
-	font-size: 1.2em;
-}
-
-#privacyAndLegalLink:hover {
-	border: 2px solid yellow;
-	color: yellow;
-}
-
-#privacy {
-	visibility: hidden;
-	opacity: 0;
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background-color: rgb(29, 157, 222);
-	transition: all .4s;
-	z-index: -1;
-	overflow: scroll;
-}
-
-#privacy:target {
-	visibility: visible;
-	opacity: 1;
-	z-index: 1;
-}
-
-#privacyClose {
-	font-size: 4em;
-	text-decoration: none;
-	color: red;
-	text-align: right;
-	display: block;
-}
-
-#privacyClose:hover {
-	color: orange;
-}
-
-#policyContainer {
-	margin: 30px;
-}
-
-#policyContainer h2 {
-	text-align: center;
-	border-bottom: 1px solid rgb(40, 98, 224);
-}
-
-.policyParaContainer {
-	margin-top: 10vh;
-}
-
-.policyParaContainer h3 {
-	text-align: center;
-}
-
-.policyParaContainer p {
-	text-align: center;
-}
-
-
 /*TEACHER*/
 #mainTeachContainer {
 	text-align: center;
@@ -514,26 +443,13 @@ button:hover{
 		transform: translateY(-50%);
 	}
 
-	/*Privacy*/
-	#policyContainer {
-		font-size: 1.5em;
-	}
-	.policyParaContainer p {
-		text-align: justify;
-	}
-	#lilPolicyContainer {
-		width: 50%;
-		margin-right: auto;
-		margin-left: auto;
-	}
-
 	/*TEACHER*/
 	.warnMessage {
 		height: 5vh;
 	}
 	#teachTutorial {
 		transform: translateY(-50%);
-		margin-top: 40vh;
+		margin-top: 50vh;
 	}
 	#mainClassroom {
 		overflow-y: scroll;

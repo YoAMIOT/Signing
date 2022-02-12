@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.controller;
+package YoannAMIOT.Signing.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,7 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import YoannAMIOT.ANPEPSigning.entities.User;
+
+import YoannAMIOT.Signing.entities.User;
 
 @Controller
 public class LoginController {
@@ -26,6 +27,7 @@ public class LoginController {
 		
 		//Return the JSP
 		return "login";
+		
 	}
 	
 	

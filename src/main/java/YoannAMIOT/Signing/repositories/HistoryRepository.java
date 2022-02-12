@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.repositories;
+package YoannAMIOT.Signing.repositories;
 
 import java.sql.Date;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import YoannAMIOT.ANPEPSigning.entities.History;
+import YoannAMIOT.Signing.entities.History;
 
 public interface HistoryRepository extends JpaRepository<History, Integer>{
 	//CHECK IF THERE'S AN HISTORY FOR THE STUDENT AND DATE//

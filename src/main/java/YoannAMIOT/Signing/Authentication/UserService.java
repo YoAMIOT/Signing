@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.Authentication;
+package YoannAMIOT.Signing.Authentication;
 
 import java.util.Objects;
 
@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import YoannAMIOT.ANPEPSigning.entities.User;
-import YoannAMIOT.ANPEPSigning.repositories.UserRepository;
+import YoannAMIOT.Signing.entities.User;
+import YoannAMIOT.Signing.repositories.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService{

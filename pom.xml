@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>YoannAMIOT</groupId>
-	<artifactId>ANPEPSigning</artifactId>
+	<artifactId>Signing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>ANPEPSigning</name>
-	<description>A signing site for the ANPEP</description>
+	<name>Signing</name>
+	<description>A signing site</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

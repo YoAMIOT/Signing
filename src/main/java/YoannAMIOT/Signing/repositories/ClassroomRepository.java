@@ -1,4 +1,4 @@
-package YoannAMIOT.ANPEPSigning.repositories;
+package YoannAMIOT.Signing.repositories;
 
 import java.sql.Date;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
-import YoannAMIOT.ANPEPSigning.entities.Classroom;
+import YoannAMIOT.Signing.entities.Classroom;
 
 public interface ClassroomRepository extends JpaRepository<Classroom, Integer> {
 	//CHECK IF THERE'S ANY CLASSROOM WHERE THIS TEACHER IS THE MAIN TEACHER//
